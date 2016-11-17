@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{width: 100%;height: 100%;font-size:12px;}
+			body,ul,li,span,p,input,h1,h2,h3,h4,h5,h6,b{margin: 0;padding: 0;}
+			img{display: block;border:0;}
+			ul{list-style: none;}
+			a{text-decoration: none;color:black;}
+			
+			.z_nav{width:100%;height: 28px;background: #f1f1f1;border-bottom:1px solid #999;margin:2px 0 0;}
+			.z_navn{width:950px;line-height: 28px;margin:0 auto;}
+			.d_a{width:auto;height:28px;margin:0 8px 0 8px;background: url(img/denglu/topbar.png) 0 0 no-repeat;}
+			.d_a a{padding: 0 0 0 16px;}
+			.d_a a:hover{text-decoration: underline;}
+			.z_navn .d_a1{background-position: 0 0px;}   /*background-position: 0 -20px;*/
+			.z_navn .d_a2{background-position: 0 -45px;} /*background-position: 0 -65px;*/
+			.z_navn .d_a3{background-position: 0 -92px;} /*background-position: 0 -112px;*/
+			.z_nav ul{float: right;}
+			.z_nav ul li{float: left;padding: 0 10px;}
+			.z_nav li a:hover{text-decoration: underline;}
+			.z_nav .z_ulli_spac{position:relative;}
+			.z_nav .z_ulli_spac a:hover{text-decoration: none;}
+			.z_nav .z_ulli_spac a{float: left;}
+			.z_nav .z_ulli_spac span{display:block;float: left;margin:8px 0 0 4px;}
+			.z_jf{width:15px;}
+			#g_ybox{position: absolute;top:28px;right:-1px;border:1px solid #d7d7d7;border-top:0;display:none;
+			box-shadow:2px 2px 4px #d7d7d7;padding: 6px 16px 16px 16px;background: white;}
+			#g_ybox span{line-height:15px;margin:4px 0 0 8px;display:block;float: left;}
+			#g_ybox .g_y1{color:#fe7b23;font-size:16px;font-weight: bold;}
+			#g_ybox .g_y2{color:#484848;font-size:14px;font-weight:bold;}
+			#g_ybox .g_y3{color:#484848;font-size:12px;}
+			.g_ydian{width:124px;height:25px;margin:5px 0 0;float: left;}
+			.g_ydian a{width:100%;height:100%;line-height: 25px;text-align: center;color:white;}
+			.g_ydian div{width:60px;margin:0 4px 0 0;float: left;background: #4f9ee7;}
+			.g_ydian_a{margin:0 4px 0 0;}
+			.g_ydian .g_ydian_b{margin:0;}
+			.g_ydian2{background: #f60;}
+			.z_navn .addnav_bg{background: white;}
+			.z_huan{float: right;}
+			
+			.d_logo{width:980px;height:106px;margin:0 auto;}
+			.d_logo img{float: left;margin:10px 30px 10px;}
+			.d_wen{float: left;line-height:49px;border-left:1px solid #d7d7d7;padding: 0 0 0 30px;margin:35px 0 0;font-size:26px;font-family: "微软雅黑";}
+			
+			.z_nei{width:100%;height: 485px;background: #e3e3e3;margin:0 0 68px;}
+			.z_n{width:960px;height:402px;margin:0 auto ;padding: 45px 0 0;}
+			.z_n img{float: left;}
+			.z_deng{width:360px;height: 400px;border:1px solid #d7d7d7;float: right;background: white;}
+			
+			.z_biao{width:auto;height: 25px;margin:17px 20px 20px;}
+			.z_biao span{font-size:20px;color:#333;float: left;margin:5px 0 0;}
+			.z_zhu{line-height:25px;color:#039;float: right;}
+			.z_zhu:hover{text-decoration:underline;}
+			.z_dkuan{width:280px;height: 31px;margin:0 auto 26px;}
+			.z_dkuan img{float: left;margin:0 2px 0 0;}
+			.z_dkuan input{float: left;width:248px;height: 31px;border:1px solid #999;}
+			.z_dkuan1{position: relative;}
+			.z_dkuan2{position: relative;}
+			.z_tishi{margin:4px 0;position:absolute;top:32px;left:0;display:none;}/*效果之一，被隐藏，用于输入错误时提示*/
+			.z_ti{color:#f7661f;float: left;}
+			.z_tipic{width:14px;height:14px;float: left;background: url(img/denglu/icon_logoin_s.png) no-repeat;
+			background-position: center -39px;} 
+			.z_ti1{display:none;}/*效果之一，被隐藏，用于输入错误时提示,第一条提示语句*/
+			.z_ti2{display:none;}/*效果之一，被隐藏，用于输入错误时提示,第二条提示语句*/
+			.z_ti2{display:none;}/*效果之一，被隐藏，用于输入错误时提示,第三条提示语句*/
+			.z_zhangan{width:280px;height:14px;margin:4px auto;}
+			.z_zhangan a{color:#039;}
+			.z_zhangan a:hover{text-decoration:underline;}
+			.z_zhangan span{float: left;}
+			.z_zhangan .z_wangmi{float: right;}
+			.z_dianjidl{width:280px;line-height: 32px;text-align: center;margin:10px auto 5px;color:white;background: #f7661f;border-radius:4px;font-size:14px;cursor:pointer;}
+			.z_ke{width:320px;height: 130px;margin: 30px auto 0;font-size:13px;background: ;}
+			.z_ke span{float: left;}
+			.z_hzhb{line-height:33px;margin:5px 6px 0 3px;background: url(img/denglu/4link.png) no-repeat;}
+			.z_hzhb a{padding:0 0 0 35px;}
+			.z_hzhb2{background-position: 0 -46px;}
+			.z_hzhb3{background-position: 0 -96px;}
+			.z_hzhb.z_hzhb4{background-position: 0 -161px;margin:5px 0 0 3px;}
+			.z_hzhbx{line-height: 24px;margin:8px 12px 0 3px;}
+			.z_hzhbx a{padding:0 0 0 28px;}
+			.z_hzhb5{background: url(img/denglu/z_tu5.png) no-repeat;}
+			.z_hzhb6{background: url(img/denglu/z_tu6.png) no-repeat;}
+			.z_hzhb7{background: url(img/denglu/z_tu7.png) no-repeat;}
+			.z_hzhb8{background: url(img/denglu/z_tu8.png) no-repeat;}
+			
+			.footd{width:522px;height: 45px;margin:0 auto;}
+			.footd img{float: left;margin: 0 5px;}
+			.footd_box{width:100%;height: 30px;margin:14px 0;}
+			.foorlian{width:310px;line-height:30px;margin:0 auto;}
+			.foorlian a{margin: 0 2px;}
+			.banquan{width: 441px;margin:0 auto;font-size:13px;margin-bottom: 40px;}
+			.banquan span{margin:0 4px 0 0;font-size:12px;}
+			.banquan .span1{font-size:15px;}
+		</style>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			$(function (){
+				$('.d_a').mouseenter(function (){
+					var index = $(this).index();
+					if(index == 0){$('.d_a').eq(index).css('background-position',"0 -20px");}
+					if(index == 1){$('.d_a').eq(index).css('background-position',"0 -65px");}
+					if(index == 2){$('.d_a').eq(index).css('background-position',"0 -112px");}
+				}).mouseleave(function (){
+					$(this).css('background-position',"");
+				});
+				
+				$('.z_ulli_spac').hover(function (){
+					$(this).addClass('addnav_bg').find('img').attr('src','img/denglu/z_jian2.png');
+					$('#g_ybox').show();
+				},function (){
+					$(this).removeClass('addnav_bg').find('img').attr('src','img/denglu/z_jian1.png');
+					$("#g_ybox").hide();
+				});
+				//..................................获取上一个页面的地址..............................................................
+				/*var shangYemian = window.location.search;
+				if(shangYemian){
+					var arr = shangYemian.split('?');
+					var yearr = arr[1].split('=');
+					var yeMian = yearr[1];                //获取上一个页面的链接地址
+					console.log(yeMian);
+				}*/
+				//..................................点击立即登录按钮效果.....................................................
+				$('.z_dianjidl').hover(function (){
+					$(this).css('background','rgba(255,151,28,1)');
+				},function (){
+					$(this).css('background','rgba(247,102,31,1)');
+				});
+				//.....................................登录操作...................................................................
+				$('.z_dianjidl').click(function (){
+					var haoMa = $('#shoujihao').val();
+					var miMa = $('#mima').val();
+					var regHao = /^1(3|5|8)\d{9}$/;
+					$('.z_tishi').hide().find('.z_ti').hide();
+					if(haoMa){
+						if(miMa){
+							if(regHao.test(haoMa)){
+								var data = $.cookie(haoMa);
+								if(data){
+									if(miMa == data){
+										$.cookie('DENGLU',haoMa,{expires:7});   //将账号存入cookie中
+										var shangYemian = window.location.search;
+										if(shangYemian){
+											var arr = shangYemian.split('?');
+											var yearr = arr[1].split('=');
+											var yeMian = yearr[1];                //获取上一个页面的链接地址
+											console.log(yeMian);
+										}
+										if(yeMian == "shangpin.html"){
+											window.location.href = 'shangpin.html';
+										}else {
+											window.location.href = 'shouye.html';
+										}
+									}else {
+										$('.z_tishi2').show().find('.z_ti2').show();
+									}
+								}else {
+									$('.z_tishi2').show().find('.z_ti2').show();
+								}
+							}else {
+								$('.z_tishi1').show().find('.z_ti1').show();
+							}
+						}else {
+							$('.z_tishi2').show().find('.z_ti3').show();
+						}
+					}else {
+						$('.z_tishi1').show().find('.z_ti1').show();
+					}
+				});
+				
+			})
+		</script>
+	</head>
+	<body>  
+		<div class="z_nav">
+			<div class="z_navn">
+				<span class="d_a d_a1"><a href="#">掌上新蛋</a></span><span class="d_a d_a2"><a  href="#">企业客户</a></span><span class="d_a d_a3"><a href="#">入驻开放平台</a></span>
+				<ul>
+					<li><a href="#">帮助中心</a></li>
+					<li class="z_ulli_spac">
+						<a href="#">客户服务</a><span class="z_jf"><img src="img/denglu/z_jian1.png"></span>
+						<div id="g_ybox">
+							<span class="g_y1">400-820-4400</span>
+							<span class="g_y2">021-67072999</span>
+							<span class="g_y3">每天 9:00-18:00</span>
+							<div class="g_ydian"><div class="g_ydian_a"><a href="#">在线咨询</a></div><div class="g_ydian_b"><a href="#">邮件我们</a></div></div>
+							<div class="g_ydian g_ydian2"><a href="#">预约来电</a></div>
+						</div>
+					</li>
+				</ul>
+				<span class="z_huan">欢迎来新蛋购物!</span>
+			</div>
+		</div>
+		<div class="d_logo">
+			<a href="shouye.html"><img src="img/logo.jpg"></a><div class="d_wen">欢迎登录</div>
+		</div>
+		<div class="z_nei">
+			<div class="z_n">
+				<img src="img/denglu/478x362.jpg"/>
+				<div class="z_deng">
+					<div class="z_biao"><span>登陆新蛋</span><a class="z_zhu" href="zhuce.html">注册新用户&gt;&gt;</a></div>
+					<div class="z_dkuan z_dkuan1">
+						<img src="img/denglu/g_ren.png"><input type="text" name="" id="shoujihao" value="" />
+						<div class="z_tishi z_tishi1"><span class="z_tipic z_tipic1"></span><span class="z_ti z_ti1">请输入正确的用户名</span></div>
+					</div>
+					<div class="z_dkuan z_dkuan2">
+						<img src="img/denglu/g_mima.png"><input type="password" name="" id="mima" value="" />
+						<div class="z_tishi z_tishi2"><span class="z_tipic z_tipic2"></span><span class="z_ti z_ti2">请输入正确的用户名、已验证手机/邮箱或密码</span><span class="z_ti z_ti3">请输入正确的密码</span></div>
+					</div>
+					<div class="z_zhangan"><span><a href="#">账号安全</a></span><span class="z_wangmi"><a href="#">忘记密码?</a></span></div>
+					<div class="z_dianjidl">立即登录</div>
+					<div class="z_ke">
+						<span>您还可以使用以下合作伙伴的账号登录新蛋网：</span>
+						<span class="z_hzhb  z_hzhb1"><a href="#">支付宝</a></span><span class="z_hzhb z_hzhb2"><a href="#">QQ</a></span><span class="z_hzhb z_hzhb3"><a href="#">微信</a></span><span class="z_hzhb z_hzhb4"><a href="#">新浪微博</a></span>
+						<span class="z_hzhbx z_hzhb5"><a href="#">手机支付</a></span><span class="z_hzhbx z_hzhb6"><a href="#">盛大登录</a></span><span class="z_hzhbx z_hzhb7"><a href="#">迅雷</a></span><span class="z_hzhbx z_hzhb8"><a href="#">莆田政府采购登录</a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footd">
+			<a href="#"><img src="img/foottu2.png"></a>
+			<a href="#"><img src="img/foottu3.png"></a>
+			<a href="#"><img src="img/foottu4.png"></a>
+			<a href="#"><img src="img/foottu5.png"></a>
+		</div>
+		<div class="footd_box">
+			<p class="foorlian">新蛋集团网站：<a href="#">美国新蛋</a><a href="#">中国新蛋</a><a href="#">加拿大新蛋</a><a href="#">新蛋软件</a><a href="#"></a></p>
+		</div>	
+		<p class="banquan"><span class="span1">&copy; 2001-2016 </span><span>新蛋商贸（上海）有限公司 </span><span>版权所有 </span><a href="#">沪ICP备：16033615</a></p>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+.cotb{width:1200px;height:auto;margin:20px auto;}
+.cotb_top{width:1200px;margin: 0 0 20px;}
+.top_bao{width: 100%;height: auto;overflow: hidden;}
+.cotb_top h1{margin:8px 0 10px 10px;font-size:20px;color:#f60;float: left;}
+.remen{display:inline-block;float: right;padding:16px 0 0 0;font-size:12px;}
+.feng{width:auto;border-top:2px solid #f60;overflow: hidden;border-bottom:1px solid #999;}
+.feng ul{width:1198px;height:277px;border-left:1px solid #999;position: relative;}
+.feng li{/*width:673px;*/width:174px;height: 100%;overflow: hidden;border-bottom: 1px solid #999;
+border-right:1px solid #999;background: white;float: left;position:absolute;top:0;}
+.fxiannei{width:100%;height: auto;position: relative;}
+.zuo{width:;height:;margin:42px 0 0 20px;}
+.zshou{width:190px;margin:0 0 16px;font-weight:500;height: 14px;overflow: hidden;}
+.zuo p{margin:0 0 3px;color:#f60;}
+.zuo img{width:200px;height: 160px;}
+.feng .fxian1{left:0;z-index:2;overflow: visible;}
+.fxian2{left:673px;z-index:3;border-left: 1px solid #999;}
+.fxian3{left:848px;z-index:4;border-left: 1px solid #999;}
+.fxian4{left:1023px;z-index:5;border-left: 1px solid #999;border-right:2px solid #999;}
+
+.you{width:660px;height:235px;margin:0 12px 40px 0;display:none;position: absolute;left:0;background: ;}/**/
+.you a,span{display:block;float: left;}
+.ybiao{width:350px;height:16px;margin:33px 0 15px;float: left;font-size: 14px;}
+.ybiao span{color:#f60;padding: 0 3px 0 0;font-weight:bold;}
+.ybiao a{width:260px;height: 19px;overflow: hidden;font-size: 14px;color:black;background: ;}/**/
+.ybiao a:hover{text-decoration:underline;}
+.you p{width:350px;height:125px;line-height:18px;float: left;}
+.ytu{width: 250px;height: auto;float: left;padding:35px 30px 0;}
+.ynei{width: 350px;height: auto;float: right;background: ;}/**/
+.youtu{display:block;width:250px;height:185px;float: left;}
+.youtu img{width:100%;height:100%;}
+.di{width:340px;height:;float: left;}
+.di a{width:90px;height:14px;margin:4px 0 0;}
+.di a img{float: left;}
+.di a span{margin:0;float: left;color:blue;}
+.piny{float: right;}
+.piny span{margin: 3px 5px 0;}
+.fxian1 .zuo{display:none;}
+.fxian1 .you{display:block;}
+.feng ul .addclass{width:675px;}
+
+.cotb_but{width:1200px;height:245px;}
+.cbbut_left{width:960px;height: auto;float: left;}
+.cbbut_utop{width:100%;height: 30px;}
+.cbbut_utop li{width:239px;border:1px solid #999;border-right:0;line-height: 29px;text-align:center;float: left;background: #f6f6f6;}
+.cbbut_ubottom{width:950px;height: 183px;padding:30px 0 0 10px;float: left;border:1px solid #999;border-top:0;border-right:0;}
+.cbbut_ubottom li{width:150px;height: 183px;float: left;padding:0 18px;position: relative;}
+.cbtu a{width:100%;height: 100%;}
+.cbbut_ubottom p{width:100%;height: 30px;overflow: hidden;}
+.cbbut_ubottom h3{color:#f60;margin:10px 0 0;}
+.cbbut_ubottom h3 span{color:#999;font-size:10px;font-weight: normal;text-decoration: line-through;}
+.cbtu_tu{width:144px;height: 108px;margin:0 0 3px 3px;}
+.cbtu_bei{width:52px;height: 52px;position: absolute;top:0;right:8px;}
+.cbbut_ub1{display:none;}
+.cbbut_ub2{display:;}
+.cbbut_ub3{display:none;}
+.cbbut_ub4{display:none;}
+
+
+.cbbut_right{width:238px;height: 243px;border:1px solid #999;float: left;position: relative;overflow: hidden;}
+.cb_lunbbo{width:1190px;height:243px;position: absolute;top:0;left:0;}
+.cb_lunbbo li{float: left;}
+.cb_lunbbo img{width:238px;height: 243px;}
+.cb_dian{position: absolute;top:0;left:0;z-index:4;}
+.cb_dian li{width: 8px;height: 8px;margin:8px 0 0 8px;border-radius:4px;float: left;background: darkgray;}
+.cb_dian .cbbg{background:#f60;}

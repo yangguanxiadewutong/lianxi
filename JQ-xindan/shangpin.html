@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{width: 100%;height: 100%;font-size:12px;}
+			body,ul,li,span,p,input,h1,h2,h3,h4,h5,h6,b{margin: 0;padding: 0;}
+			p{line-height: 13px;}
+			img{display: block;border:0;}
+			ul{list-style: none;}
+			a{text-decoration: none;color:black;}
+			
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/head.css"/>
+		<link rel="stylesheet" href="css/shangpin.css" />
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="js/huang.js"></script>
+		<script type="text/javascript">
+			$(function (){
+				//..............................获取链接信息，得到对应的商品json数据.............................................................
+				/*var lianXin = window.location.search;
+				var lianArr = lianXin.split('?');
+				var lianArry = lianArr[1].split('=');
+				var ID = lianArry[1];
+				$.get('json/shangpinxinxi.json',function (data){
+					
+				});*/
+				
+				
+				//............................加载下拉框..........................................................
+				$('#bao-xuan').load('xialakuang.html',function (){
+					$('.navleft').click(function (){
+						$('#bao-xuan').slideDown(500);
+					}).mouseleave(function (){
+						$('#bao-xuan').slideUp(500);
+					});
+					
+				});
+				//...............................如若存有登录信息，显示登录帐号状态..........................................................
+				var denglu = $.cookie('DENGLU');
+				if(denglu){
+					$('.head_zhanghao').text(denglu);
+					kegou();
+					goulie();
+				}
+				//.....................head......................................................
+				$('.headyl').hover(function (){
+					$(this).find('.yindiv').show().end().css('background','white').find('.tubj img').attr('src','img/headery2.png');
+				},function (){
+					$(this).find('.yindiv').hide().end().css('background','').find('.tubj img').attr('src','img/headery1.png');
+				})
+				
+				$('.headnduo').hover(function (){
+					$(this).find('.nrg').show().end().find('.nrbg').css({'background':'white'})
+					.end().find('.nright').css('color','black').end().find('.headnbjp')
+					.attr('src','img/navt.png');
+					$('.headnbj1').css('border-right','0');
+				},function (){
+					$(this).find('.nrg').hide().end().find('.nrbg').css('background','')
+					.end().find('.nright').css('color','').end().find('.headnbjp')
+					.attr('src','img/navy.png');
+					$('.headnbj1').css('border-right','');
+				});
+				
+				var navmiddle = document.getElementsByClassName("navmiddle")[0];
+				var navmli = navmiddle.getElementsByTagName("li");
+				for(var l = 0; l < navmli.length; l++){
+					navmli[l].onmouseover = function (){
+						changergba(this,1,41,93,215,0.1);
+					}
+					navmli[l].onmouseout = function (){
+						changergba(this,0,41,93,215,1);
+					}
+				}	
+				
+				//...............................nei..........................................
+				$('.sp_tui').find('p:eq(0)').click(function (){
+					if($('.sp_yi').css('left') == "-103px"){
+						$('.sp_yi').animate({left:0},280);
+					}else {
+						$('.sp_yi').animate({left:-103},500);
+					}
+				});
+				
+				$('.sp_tui').find('p:eq(1)').click(function (){
+					if($('.sp_yi').css('left') == "-103px"){
+						$('.sp_yi').animate({left:0},180);
+					}else {
+						$('.sp_yi').animate({left:-103},500);
+					}
+				});
+				
+				var biao = 0;
+				$('.sp_yi li').hover(function (){
+					var index = $(this).index();
+					$('.sp_yi li').css('border',"2px solid white");
+					$(this).css('border',"2px solid #f60");
+					$('.sp_fangda').find('li').removeClass("addshow").eq(index).addClass('addshow');
+					biao = $('.addshow').index();
+				}); 
+				//.................................点击样式增加状态加为勾选.........................................................
+				var yanShi1 = $('.sp_sx4 .addgou').text();
+				var yanShi2 = $('.sp_sx5 .addgou').text();
+				$('.sp_sx7 b').text('“' + yanShi1 +'、'+ yanShi2 + '”');
+				$('.sp_sx4 p').click(function (){
+					$('.sp_sx4 p').removeClass('addgou');
+					$(this).addClass('addgou');
+					yanShi1 = $(this).text();
+					$('.sp_sx7 b').text('“' + yanShi1 +'、'+ yanShi2 + '”');
+				});
+				$('.sp_sx5 p').click(function (){
+					$('.sp_sx5 p').removeClass('addgou');
+					$(this).addClass('addgou');
+					yanShi2 = $(this).text();
+					$('.sp_sx7 b').text('“' + yanShi1 +'、'+ yanShi2 + '”');
+				});
+				
+				
+				
+				
+				
+				//..............................点击合作伙伴图标.....................................................
+				$('.sp_kuo').click(function (){
+					if($('#sp_dg2').is(':visible')){
+						$(this).css('webkitTransform','rotate(0deg)');
+					}else {
+						$(this).css('webkitTransform','rotate(180deg)');
+					}
+					$('#sp_dg2').toggle();
+				});
+				$('.sp_guan a').hover(function (){
+					$(this).css('opacity',1);
+				},function (){
+					$(this).css('opacity',0.5);
+				});
+				//...............................立即购买.加入购物车按键移入效果....................................................
+				$('.sp_li').hover(function (){
+					$(this).css('background','rgba(255,151,28,1)');
+				},function (){
+					$(this).css('background','rgba(255,102,0,1)');
+				});
+				
+				$('.sp_jgou').hover(function (){
+					$(this).css('background','url(img/shangpin/sp-gou.png) 35px no-repeat rgba(41,93,215,1)');
+				},function (){
+					$(this).css('background','url(img/shangpin/sp-gou.png) 35px no-repeat rgba(28,66,154,1)');
+				});
+				//.............................抢购计时效果.................................................
+				dingshi(8,59,60)
+				function dingshi(h,m,s){
+					var time = setInterval(function (){
+						s--;
+						$('.ji-shi').text(h + "小时");
+						$('.ji-fen').text(m + "分");
+						$('.ji-miao').text(s + "秒");
+						if(s == 0){
+							clearTimeout(time);
+							m -= 1;
+							$('.ji-fen').text(m + "分");
+							if(m == 0){
+								if(h != 0){
+									h -= 1;
+									m = 59;
+								}else {
+									console.log(1);
+									$('.ji-shi').text(h + "小时");
+									$('.ji-fen').text(m + "分");
+									$('.ji-miao').text(s + "秒");
+									clearTimeout(time);
+									return ;
+								}
+							}
+							s = 60;
+							dingshi(h,m,s);
+						}
+					},1000);
+				}
+				//.............................二维码.......................................
+				$('.sp_ew').on('mouseenter','img',function (){
+					$('.sp_ewyin').show();
+				});
+				$('.sp_ew').on('mouseleave','img',function (){
+					$('.sp_ewyin').hide();
+				});
+				//................................dandan......................................
+				$('.dandan').on('mouseenter','img',function (){
+					$(this).attr('src','img/shangpin/dan2.gif');
+				});
+				$('.dandan').on('mouseleave','img',function (){
+					$(this).attr('src','img/shangpin/dan1.gif');
+				});
+				//..............................放大镜.................................................................
+				// #smalltu小图         #smallbox    小区
+				// #bigtu    大图        #bigbox  大区
+				fangdajing();
+				function fangdajing(){
+					var xiShu = $('#bigtu').width() / $('#smalltu').width(); 
+					$('#smalltu').mousemove(function (event){
+						console.log('pt');
+						$('#smallbox').show();
+						switch(biao){
+							case 0: var tu = 'img/shangpin/sp_shanga1.jpg';break;
+							case 1: var tu = 'img/shangpin/sp_shangb1.jpg';break;
+							case 2: var tu = 'img/shangpin/sp_shangc1.jpg';break;
+							case 3: var tu = 'img/shangpin/sp_shangd1.jpg';break;
+							case 4: var tu = 'img/shangpin/sp_shange1.jpg';break;
+						}
+						$('#bigtu').attr('src',tu);
+						$('#bigbox').show();
+						var keshiX = event.pageX - $('#smalltu').offset().left - $('#smallbox').width()/2;
+						var keshiY = event.pageY - $('#smalltu').offset().top - $('#smallbox').height()/2;
+						if (keshiX <= 0) { //不超出左边
+							keshiX = 0;
+						}else if (keshiX >= $('#smalltu').width()-$('#smallbox').width()) { //不超出右边
+							keshiX = $('#smalltu').width()-$('#smallbox').width();
+						}
+						if (keshiY <= 0) { //不超出上边
+							keshiY = 0;
+						}else if (keshiY >= $('#smalltu').height()-$('#smallbox').height()) { //不超出下边
+							keshiY = $('#smalltu').height()-$('#smallbox').height();
+						}
+						$('#smallbox').css({left: keshiX, top: keshiY});//移动小区域
+						
+						
+						$('#bigtu').css({left: -1*keshiX*xiShu, top: -1*keshiY*xiShu});//移动大图
+					});
+					$('#smalltu').mouseleave(function (){
+						console.log('lt');
+						$('#smallbox').hide();
+						$('#bigbox').hide();
+					});
+					$('#smallbox').dblclick(function (){
+						console.log('gt');
+						$('#smalltu').off('mousemove');
+						$('#smallbox').hide();
+						$('#bigbox').hide();
+					});
+				}
+				
+				
+				//............................scroll + dandan + fangda...............................................
+				var tops = 0;
+				$(window).scroll(function (){
+					tops = $(window).scrollTop();
+					if(tops >= 210){
+						$('.sp_liubox').addClass('sp_nav_gundong').animate({opacity:1},2000);
+						$('.addlian').siblings().addClass('addcolor').find('a').css('color','white');
+						$('.sp_jiagou').show().siblings('.sp_jd').hide();
+						if(!$('img').hasClass('addfly')){
+							$('.dandan').show();
+						}
+					}else {
+						$('.sp_liubox').removeClass('sp_nav_gundong');
+						$('.addlian').siblings().removeClass('addcolor').find('a').css('color','');
+						$('.sp_jiagou').hide().siblings('.sp_jd').show();
+						$('.dandan').hide();
+					}
+					//console.log(tops);
+					$('.sp_fangda li').click(function (){
+						var kuan = $(window).innerWidth();
+						var gao = $(window).innerHeight();
+						$('.sp-bigbox').css({width:kuan,height:gao}).offset({top:tops}).show();
+					});
+					
+						
+				});
+				
+					$('.dandan').click(function (){    //点击蛋蛋事件    ,存在兼容问题，在火狐浏览器中不能正常执行窗口动画回到顶部的效果
+						var weizhi = $(this).offset().top; //tops-滚动条滚动的距离
+						$(this).hide(10,function (){
+							$('<img>').appendTo('body').attr('src','img/shangpin/dan3.gif').css({top:weizhi}).addClass('addfly').animate({top:0,opacity:0.4},2000,function (){
+								$('.addfly').remove();
+							});
+							$(this).trigger('dong');
+							$('body').animate({scrollTop:0},2000,function (){});
+							$('html').animate({scrollTop:0},2000,function (){});
+						});
+					});
+				
+				
+				
+				
+				$('.sp_xian li').click(function (){
+					$('.sp_xian li').removeClass('addlian');
+					$(this).addClass('addlian');
+				});
+				
+				$('.sp_jiagou').hover(function (){
+					$('.sp_yingou').show(500);
+				},function (){
+					$('.sp_yingou').hide(500);
+				});
+				
+				
+				var zheight = ($(window).height()-$('.sp-zuotui').outerHeight())/2;
+				$('.sp-zuotui').css({top:zheight});
+				$('.sp-youtui').css({top:zheight});
+				
+				var bwidth = ($(window).width()-$('.sp-bigul li').outerWidth())/2;
+				var btop = ($(window).height()-$('.sp-bigul li').outerHeight())/2;
+				$('.sp-bigul li').css('margin','0 0 0 '+bwidth+'px');
+				
+				
+				var shu = $('.sp-bigul li').length;    //li元素的个数
+				var jin = $('.sp-bigul li').outerWidth(true); //每个li元素的长度（内容宽+宽padding+宽margin+宽border）
+				var ullong = jin * shu;                   //ul的总长度
+				$('.sp-bigul').css({width:ullong,top:btop}).hide();
+				
+				var cleft = 0;
+				var ctop = 0;
+				
+				$('.sp_fangda li').click(function (event){
+					var kuan = $(window).innerWidth();
+					var gao = $(window).innerHeight();
+					var juli = -1* $(this).index() * jin;
+					$(this).addClass('biaoji');
+					$('.sp-bigul').css('left',juli);
+					cleft = $(this).offset().left;
+					ctop = $(this).offset().top;
+					var address = $(this).find('img').attr('src');
+					$('.sp-bigbox').css({width:kuan,height:gao,top:tops}).show(function (){
+						$('<img>').appendTo('.sp-bigbox').attr('src',address).css({left:cleft,top:ctop-tops})
+						.addClass('sp-clone').animate({left:bwidth,top:btop,width:640,height:480},2000,function (){
+							$(this).remove();
+							$('.sp-bigul').show();
+						});
+					});
+				});
+				
+				var now = 0;
+				$('.sp-zuotui').click(function (){
+					now = $('.biaoji').index();       //显示被标记的元素（即现在显示在页面中的li元素）的下标
+					if(now <= (shu-2)){
+						var yi = -1*(now+1)*jin;
+						$('.biaoji').removeClass('biaoji').next('li').addClass('biaoji');
+						$('.sp-bigul').animate({left:yi},1000);
+					}
+					if(now == (shu-2)){
+						$('.sp-zuotui').hide();
+					}
+					
+					$('.sp-youtui').show();
+				});
+				
+				$('.sp-youtui').click(function (){
+					now = $('.biaoji').index();       //显示被标记的元素（即现在显示在页面中的li元素）的下标
+					if(now >= 1){
+						var yi = -1*(now-1)*jin;
+						$('.biaoji').removeClass('biaoji').prev('li').addClass('biaoji');
+						$('.sp-bigul').animate({left:yi},1000);
+					}
+					if(now == 1){
+						$('.sp-youtui').hide();
+					}
+					$('.sp-zuotui').show();
+				});
+				
+				$('.sp-close').click(function (event){
+					var index = $('.biaoji').index();
+					var lian = $('.biaoji').find('img').attr('src');
+					var aleft = $('.sp-bigul li').eq(index).offset().left;
+					var atop = $('.sp-bigul li').eq(index).offset().top;
+					$('<img>').appendTo('.sp-bigbox').css({left:aleft,top:atop-tops}).attr('src',lian).addClass('sp-kelong').show();
+					//$('<img>').appendTo('.sp-bigbox').css({left:event.pageX,top:event.pageY}).attr('src',lian).addClass('sp-kelong').show();
+					$('.sp-bigul').hide(10,function (){
+						$('.sp-kelong').animate({left:cleft,top:ctop-tops,width:450,height:338},1000,function (){
+							$('.sp-kelong').remove();
+							$('.sp_fangda').find('li').removeClass("addshow").eq(index).addClass('addshow');
+							$('.sp_yi li').css('border',"2px solid white");
+							$('.sp_yi li').eq(index).css('border',"2px solid #f60");
+							$('.sp-bigbox').hide();
+							biao = $('.addshow').index();
+							$('.biaoji').removeClass('biaoji');
+						});
+					});
+				});
+				//......................................点击增减商品数量...........................................
+				var sp_shu = $('.sp_jm').text();
+				$('.sp_jjian').click(function (){           //点击加一
+					$('.sp_jm').text(++sp_shu);
+				});
+				$('.sp_jjia').click(function (){            //点击减一
+					if(sp_shu != 1){
+						$('.sp_jm').text(--sp_shu);
+					}
+				});
+				
+				//....................................点击立即购买...................................................
+				$('.sp_li').click(function (){    //点击立即购买去购物车页面
+					window.location.href="gouwuche.html";
+				});
+				//......................................点击加入购物车...........................................
+				function kegou(){	
+					var Arr = $.cookie('Xshangpin') ? JSON.parse($.cookie('Xshangpin')):[];
+					$('.sp_jgou').click(function (){
+						var data = {};
+						var youCookie = false;
+						var qianid =  $('.sp_sx:eq(0)').find('p').attr('id');
+						data.id = qianid + "_" + $('.sp_sx4 .addgou').text() + "_" + $('.sp_sx5 .addgou').text();
+						$.each(Arr, function(index,val) {
+							if(val.id == data.id){  //若是之前的商品型cookie中有该类商品
+								val.count = parseInt(val.count) + parseInt($('.sp_jm').text());
+								youCookie = true;
+							}
+						});
+						if(!youCookie){
+							data.count = parseInt($('.sp_jm').text());
+							data.jia = 14209;
+							Arr.push(data);
+						}
+						$('.sp_xin .jia-cheng').show();
+						var arrString = JSON.stringify(Arr);   //将其转化为字符串格式
+						$.cookie('Xshangpin',arrString,{expires:10});  //浏览器中同名cookie会自行替换掉之前的cookie，所以不必对之前的cookies进行处理
+						var time = setInterval(function (){
+							$('.sp_xin .jia-cheng').hide();
+							clearInterval(time);
+						},3000);
+						goulie();
+					});
+				}
+				//.............................................................................................
+				$('.sp_xin .jia-cheng span').click(function (){
+					$('.sp_xin .jia-cheng').hide();
+				});
+				//.....................................显示购物车列表.................................................
+				function goulie(){
+					var Arr = $.cookie('Xshangpin') ? JSON.parse($.cookie('Xshangpin')):[];
+					var youspcookie = false;
+					$.get('json/gouwuche.json',function (data){
+						if($('.show-gl')){
+							$('.show-gl').remove();
+						}
+						var jianshu = 0;
+						$.each(Arr, function(indexs,vals) {
+							$.each(data,function (index,val){
+								if(vals.id == val.id){
+									$('.shan:eq(0)').clone().insertBefore('.xugou').addClass('show-gl').show();
+									var strings = val.id;
+									var stringArr = strings.split('_');
+									var pDuan ="";
+									$.each(stringArr, function(index,val) {
+										pDuan += val + " "; 
+									});
+									jianshu++;
+									var jiaX = "￥" + vals.jia + ".00  x" + vals.count; 
+									$('.show-gl').eq(-1).find('img').attr('src',val.tu)
+									.end().find('p:eq(0)').text(pDuan).end().find('p:eq(1)').text(jiaX);
+								}
+								youspcookie = true;
+							});
+						});
+						$('.nrightl b').text(jianshu);
+						if(youspcookie){
+							$('.lian-box').hide();
+							$('.nr-box').show();
+						}	
+					});
+					
+				}
+				
+			})
+		</script>
+	</head>
+	<body>
+		
+		<div class="head">
+			<div class="header">
+				<div class="headnei">
+					<ul class="headzuo">
+						<li class="headzuo1"><a href="#">掌上新蛋</a></li>
+						<li class="headzuo2"><a href="#">企业团购</a></li>
+					</ul>
+					<div class="headyou">
+						<div class="head_zhanghao"></div>
+						<span><a href="zhuce.html">注册</a>| <a href="denglu.html?ye=shangpin.html">登录</a>晚上好，欢迎来新蛋购物！</span>
+						<ul class="headyounei">
+							<li><a href="#">我的订单</a></li>
+							<li class="headyl">
+								<div class="headduo">
+									<a class="headyouspa headyouspa1" href="#">我的新蛋</a>
+									<div class="tubj"><img src="img/headery1.png"></div>
+								</div>
+								<div class="yindiv yindiv1">请 <a href="denglu.html?ye=shangpin.html">登录</a> 后查看</div>
+							</li>
+							<li><a href="#">帮助中心</a></li>
+							<li class="headyl">
+								<div class="headduo">
+									<a class="headyouspa headyouspa2" href="#">客户服务</a>
+									<div class="tubj"><img src="img/headery1.png"></div>
+								</div>
+								<div class="yindiv yindiv2">
+									<p class="yinp1">400-820-4400</p><b>021-67072999</b><p>每天 9:00-18:00</p>
+									<div class="zixun"><a href="#"  class="zixuna1">在线咨询</a><a href="#">联系我们</a></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="headmiddle">
+				<a href="shouye.html"><img class="logo" src="img/logo.jpg" alt="网页LOGO标志" title=""/></a>
+				<div class="headmiddlebox">
+					<div class="shou"><input type="text" id="" placeholder="苹果新品 优惠价来袭"/><p>搜索</p></div>
+					<ul class="shouxia">
+						<li class="sxial"><a href="#">移动硬盘</a></li>
+						<li><a href="#">MacBook</a></li>
+						<li><a href="#">mate8</a></li>
+						<li><a href="#">Thinkpad</a></li>
+						<li class="sxiar"><a href="#">行车记录仪</a></li>
+					</ul>
+				</div>
+				<a href="#"><img class="qitian" src="img/qitian.gif" alt="七天退货图" title=""/></a>
+			</div>
+			<div class="headbottom">
+				<div class="nav">
+					<div class="nava navleft"><a class="nava-jia" href="#" >全部商品分类</a><div id="bao-xuan"></div></div>
+					<div class="navas navright">
+						<div class="headnduo">
+							<div class="nrbg nrbgl">
+								<a class="nright nrightl " href="#">购物车 <b>0 </b>件</a>
+								<div class="headnbj headnbj1"><img class="headnbjp" src="img/navy.png"></div>
+							</div>
+							<div class="nrg nrgl">
+								<div class="lian-box"><br /><a id='goulian' href="gouwuche.html?ye=shangpin.html">您还没有购买商品。快去挑选吧!</a></div>
+								<div class="nr-box">
+									<div class="shan"><img src=""><p></p><p></p></div>
+									<div class="xugou"><a href="gouwuche.html">前往购物车&gt;&gt;</a></div>
+								</div>
+							</div>	
+						</div>
+						<div class="headnduo">
+							<div class="nrbg nrbgr">
+								<a class="nright nrightr" href="#">收藏提醒</a>
+								<div class="headnbj headnbj2"><img class="headnbjp" src="img/navy.png"></div>
+							</div>
+							<div class="nrg nrgr"><p>请登陆后查看</p><a href="denglu.html?ye=shangpin.html">登录</a></div>
+						</div>
+					</div>
+					<ul class="navmiddle">
+						<li><a href="shouye.html">首页</a></li>
+						<li><a href="#">限时抢购</a></li>
+						<li><a href="#">团团赚</a></li>
+						<li><a href="#">海外直购</a></li>
+						<li><a href="#">爱车配</a></li>
+						<li><a href="#">二手车库</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="sp_nav">
+			<div class="sp_diu">
+				<ul class="sp_dao">
+					<li><a href="#">首页 &gt;</a></li>
+					<li><a href="#">摄影 &gt;</a></li>
+					<li><a href="#">单反相机 &gt;</a></li>
+					<li><a href="#">Nikon 尼康 &gt;</a></li>
+					<li><a href="#">产品编号: A04-275-5X5</a></li>
+				</ul>
+				<div class="sp_dui">
+					<div class="sp_wen">可以对比5个商品</div><p></p><p></p><p></p><p></p><div class="sp_ma">马上对比</div>
+				</div>
+			</div>
+		</div>
+		<div class="sp_liubox">
+			<div class="sp_liu ">
+				<div class="sp_liunei">
+					<ul class="sp_xian">
+						<li class="addlian"><a href="#">商品详情</a></li>
+						<li><a href="#">用户评论</a></li>
+						<li><a href="#">具体参数</a></li>
+						<li><a href="#">售后服务</a></li>
+						<li><a href="#">商品咨询</a></li>
+					</ul>
+					<div class="sp_jd"><p>将商品加入对比</p><span></span></div>
+					<div class="sp_jiagou">
+						加入购物车
+						<div class="sp_yingou">
+							<div class="sp_yg_nei">
+								<img src="img/shangpin/sp_shanga2.jpg">
+								<p>Nikon 尼康 D750 单反相机 套机 - 含AF-S 尼克尔 24-120mm f/4G ED VR镜头</p>
+								<span class="sp_yangs">已选择 “黑色、24-120套机”</span>
+								<span class="sp_jiage">新蛋价&nbsp;<u>￥ <b>14209.00</b></u></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="sp_content">
+			<div class="sp_cshou"><p>Nikon 尼康 D750 单反相机 套机 - 含AF-S 尼克尔 24-120mm f/4G ED VR镜头</p></div>
+			<div class="sp_cn">
+				<div class="sp_cleft">
+					<div class="sp_sptu">
+						<ul class="sp_fangda" id="smalltu">
+							<li class="addshow"><img src="img/shangpin/sp_shanga1.jpg"></li>
+							<li><img src="img/shangpin/sp_shangb1.jpg"></li>
+							<li><img src="img/shangpin/sp_shangc1.jpg"></li>
+							<li><img src="img/shangpin/sp_shangd1.jpg"></li>
+							<li><img src="img/shangpin/sp_shange1.jpg"></li>
+							<div id="smallbox"></div>
+						</ul>
+					</div>
+					<div class="sp_tui">
+						<p><img src="img/shangpin/sp_jian1.png"></p>  <!--不动-->
+						<div class="sp_yibox">
+							<ul class="sp_yi">
+								<li class="sp_yik"><img src="img/shangpin/sp_shanga2.jpg"></li>
+								<li><img src="img/shangpin/sp_shangb2.jpg"></li>
+								<li><img src="img/shangpin/sp_shangc2.jpg"></li>
+								<li><img src="img/shangpin/sp_shangd2.jpg"></li>
+								<li><img src="img/shangpin/sp_shange2.jpg"></li>
+							</ul>
+						</div>
+						<p class="sp_jian2"><img src="img/shangpin/sp_jian2.png"></p> 
+					</div>
+				</div>
+				<div class="sp_cmiddle">
+					<div class="sp_xin">
+						<div class="sp_sx"><span>品&nbsp;&nbsp;牌：</span><p id ="nikon_d750">Nikon 尼康</p></div>
+						<div class="sp_sx"><span>产品型号：</span><p>D750 24-120 VR 套机</p></div>
+						<div class="sp_sx2"><span>抢 购 价：</span><b>￥</b><img src="img/shangpin/PriceImage.png"><b>限时抢！</b><p class="ji-shi">9小时</p><p class="ji-fen">00分</p><p class="ji-miao">00秒</p></div>
+						<div class="sp_sx3"><span>商品支持：</span><div><img src="img/shangpin/sp_tu1.jpg"><u>礼品包装</u></div><div><img src="img/shangpin/sp_tu2.jpg"><u>不支持无理由退</u></div></div>
+						<div class="sp_sx4"><span>颜&nbsp;&nbsp;色：</span><p class="addgou">黑色</p><p>灰色</p></div>
+						<div class="sp_sx5"><span>列&nbsp;&nbsp;表：</span><p class="addgou">24-120套机</p></div>
+						<div class="sp_sx6"><span>数&nbsp;&nbsp;量：</span>
+							<div class="sp_j"><div class="sp_jt sp_jjia">-</div><div class="sp_jm">1</div><div class="sp_jt sp_jjian">+</div></div><p>库存：有货</p>
+						</div>
+						<div class="sp_sx7"><span></span><p>已选择</p><b></b></div>
+						<div class="jia-cheng"><span></span><p>已经把商品加到购物车了哟(*^__^*) ……</p></div>
+					</div>
+					<div class="sp_dianjia">
+						<div class="sp_dianjs"><div class="sp_l sp_li">立即购买</div><div class="sp_l sp_jgou">加入购物车</div></div>
+						<div class="sp_dianjx">
+							<div class="sp_jx sp_jshou">加入收藏夹</div><div class="sp_jx sp_zan"><img src="img/shangpin/sp_xin1.jpg"><p>0</p></div>
+							<div class="sp_guan">
+								<div id="sp_dg1">
+									<a href="#" class="sp_dong1"></a><a href="#" class="sp_dong2"></a>
+									<a href="#" class="sp_dong3"></a><a href="#" class="sp_dong4"></a>
+									<img class="sp_kuo" src="img/shangpin/sp_qie.jpg">
+								</div>
+								<div id="sp_dg2">
+									<a href="#" class="sp_dong5"></a><a href="#" class="sp_dong6"></a>
+									<a href="#" class="sp_dong7"></a><a href="#" class="sp_dong8"></a>
+								</div>
+							</div>
+							
+						</div>
+						
+						
+						
+					</div>
+				</div>
+				<div class="sp_cright">
+					<div class="sp_jiang"><img src="img/shangpin/sp_jiang.jpg"></div>
+					<div class="sp_deng"><h4>0.0</h4><img src="img/shangpin/sp_hui.jpg"><br /><p>暂无评论</p></div>
+					<div class="sp_ew">
+						<img src="img/shangpin/sp_ew.jpg"><p>转到手机上看</p>
+						<div class="sp_ewyin"><img src="img/shangpin/sp_ew.jpg"></div>
+					</div>
+				</div>
+			</div>
+			<div id="bigbox"><img id="bigtu" src="img/shangpin/sp_shanga1.jpg"></div>
+		</div>
+		
+		<div class="sp_foot">
+			<div class="sp_jiu"><p>如果您发现商品信息不准确，<a href="#">欢迎纠错</a></p></div>
+			<img src="img/shangpin/image1.jpg">
+			<div class="sp_fdong">
+				<img src="img/shangpin/icon1.gif">
+				<img src="img/shangpin/icon2.gif">
+				<img src="img/shangpin/icon3.gif">
+				<img src="img/shangpin/icon4.gif">
+				<img src="img/shangpin/icon5.gif">
+				<img src="img/shangpin/icon6.gif">
+				<img src="img/shangpin/icon7.gif">
+				<img src="img/shangpin/icon8.gif">
+			</div>
+			<img src="img/shangpin/771x245.jpg"/>
+			<h1 class="sp_fxin"> Nikon 尼康 D750 单反相机 套机 - 含AF-S 尼克尔 24-120mm f/4G ED VR镜头</h1>
+			<img src='img/shangpin/sp_fxn1.jpg'>
+			<img src="img/shangpin/A04-275-5X5_01.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_02.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_03.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_04.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_05.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_06.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_07.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_08.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_09.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_10.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_11.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_12.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_13.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_14.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_15.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_22.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_23.jpg" alt="" />
+			<img src="img/shangpin/A04-275-5X5_24.jpg" alt="" />
+			
+			<div class="footc">
+				<div class="ftul ftult">
+					<p>新手上路</p>
+					<ul>
+						<li><a href="#">怎么购物</a></li>
+						<li><a href="#">支付常见问题</a></li>
+						<li><a href="#">没运费政策</a></li>
+						<li><a href="#">发票须知</a></li>
+						<li><a href="#">签收验货流程</a></li>
+						<li><a href="#">用户评价/咨询</a></li>
+						<li><a href="#">大件商品订购流程</a></li>
+					</ul>
+				</div>
+				<div class="ftul">
+					<p>售后服务</p>
+					<ul>
+						<li><a href="#">退换货政策</a></li>
+						<li><a href="#">订单查询</a></li>
+						<li><a href="#">售后申请</a></li>
+					</ul>
+				</div>
+				<div class="ftul">
+					<p>特色服务</p>
+					<ul>
+						<li><a href="#">关于会员制</a></li>
+						<li><a href="#">价格保护</a></li>
+					</ul>
+				</div>
+				<div class="ftul">
+					<p>申请合作</p>
+					<ul>
+						<li><a href="#">申请成为供应商</a></li>
+						<li><a href="#">申请入驻开放平台</a></li>
+						<li><a href="#">友情合作</a></li>
+						<li><a href="#">网站联盟</a></li>
+						<li><a href="#">企业客户</a></li>
+					</ul>
+				</div>
+				<div class="ftul ftulb">
+					<p>关于我们</p>
+					<ul>
+						<li><a href="#">新蛋集团</a></li>
+						<li><a href="#">联系我们</a></li>
+						<li><a href="#">诚聘英才</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footd">
+				<img src="img/foottu1.png">
+				<img src="img/foottu2.png">
+				<img src="img/foottu3.png">
+				<img src="img/foottu4.png">
+				<img src="img/foottu5.png">
+			</div>
+			<div class="footd_box">
+				<p class="foorlian">新蛋集团网站：<a href="#">美国新蛋</a><a href="#">中国新蛋</a><a href="#">加拿大新蛋</a><a href="#">新蛋软件</a><a href="#"></a></p>
+			</div>	
+			<p class="banquan"><span class="span1">&copy; 2001-2016 </span><span>新蛋商贸（上海）有限公司 </span><span>版权所有 </span><a href="#">沪ICP备：16033615</a></p>
+			<div class="sp-bigbox">
+				<div class="sp-bigbox-nei">
+					<img class="sp-zuotui" src="img/shangpin/sp_jian1.png">
+					<ul class="sp-bigul">
+						<li><img src="img/shangpin/sp_shanga1.jpg"></li>
+						<li><img src="img/shangpin/sp_shangb1.jpg"></li>
+						<li><img src="img/shangpin/sp_shangc1.jpg"></li>
+						<li><img src="img/shangpin/sp_shangd1.jpg"></li>
+						<li><img src="img/shangpin/sp_shange1.jpg"></li>
+					</ul>
+					<img class="sp-youtui" src="img/shangpin/sp_jian2.png">
+					<img class="sp-close" src="img/shangpin/close.gif">
+				</div>
+			</div>
+		</div>
+		
+		<div class="dandan">
+			<img src="img/shangpin/dan1.gif">
+		</div>
+	</body>
+</html>

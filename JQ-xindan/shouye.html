@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{width: 100%;height: 100%;font-size:12px;}
+			body,ul,li,span,p,input,h1,h2,h3,h4,h5,h6,b{margin: 0;padding: 0;}
+			p{line-height: 15px;}
+			img{display: block;border:0;}
+			ul{list-style: none;}
+			a{text-decoration: none;color:black;}
+			
+		</style>
+		<link rel="stylesheet" type="text/css" href="css/head.css"/>
+		<link rel="stylesheet" type="text/css" href="css/cota.css"/>
+		<link rel="stylesheet" type="text/css" href="css/cotb.css"/>
+		<link rel="stylesheet" type="text/css" href="css/cotc-g.css"/>
+		<link rel="stylesheet" type="text/css" href="css/foot.css"/>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/huang.js"></script>
+		<script type="text/javascript" src="js/yin.js"></script>
+		<script type="text/javascript" src="js/chong-lunbo.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			$(function (){
+				//.....................head......................................................
+				$('.headyl').hover(function (){
+					$(this).find('.yindiv').show().end().css('background','white');
+					$('.tubj').find('img').attr('src','img/headery2.png');
+				},function (){
+					$(this).find('.yindiv').hide().end().css('background','');	
+					$('.tubj').find('img').attr('src','img/headery1.png');
+				})
+				
+				$('.headnduo').hover(function (){
+					$(this).find('.nrg').show().end().find('.nrbg').css({'background':'white'})
+					.end().find('.nright').css('color','black').end().find('.headnbjp')
+					.attr('src','img/navt.png');
+					$('.headnbj1').css('border-right','0');
+				},function (){
+					$(this).find('.nrg').hide().end().find('.nrbg').css('background','')
+					.end().find('.nright').css('color','').end().find('.headnbjp')
+					.attr('src','img/navy.png');
+					$('.headnbj1').css('border-right','');
+				});
+				
+				var navmiddle = document.getElementsByClassName("navmiddle")[0];
+				var navmli = navmiddle.getElementsByTagName("li");
+				for(var l = 0; l < navmli.length; l++){
+					navmli[l].onmouseover = function (){
+						changergba(this,1,41,93,215,0.1);
+					}
+					navmli[l].onmouseout = function (){
+						changergba(this,0,41,93,215,1);
+					}
+				}	
+				//...............................如若存有登录信息，显示登录帐号状态..........................................................
+				var denglu = $.cookie('DENGLU');
+				if(denglu){
+					$('.head_zhanghao').text(denglu);
+				}
+				
+				//...................cota.................................................
+				$.get('json/yinjson.json',function (data){
+					xuan(data);
+				});
+				//.........................................................................
+				ca_luna();
+				ca_lunab();
+				
+				
+				
+				
+				//...................cotb................................................
+				$('.feng li').mouseenter(function (){     //风琴
+					var geshu = $('.feng li').length;
+					var index = $(this).index();
+					var arr = [];
+					if(!$(this).hasClass('addclass')){
+						if($(this).prevAll().hasClass('addclass')){
+							$(this).siblings('li').removeClass('addclass').find('.zuo').show().siblings('.you').hide();
+							for(var i = 1; i <= index;i++){
+								var leftshu = 174 * i;
+								$('.feng li').eq(i).css({left:leftshu});
+							}
+							for(var i = index+1; i < geshu;i++){
+								var leftshu = 174 * (i-1)+675;
+								$('.feng li').eq(i).css({left:leftshu});
+							}
+							$(this).addClass('addclass').css('width',675).find('.zuo').hide().siblings('.you').css('left','675px').show().animate({left:0},1000);
+						}else {
+							$(this).siblings('li').find('.zuo').show().siblings('.you').hide();
+							var xiabiao = $('.addclass').index();
+							for(var j = index+1; j < geshu; j++){
+								var leftshu = 174 * (j - 1) + 675;
+								if(j == xiabiao){
+									$('.feng li').eq(j).removeClass('addclass').css('width','675').animate({width:174,left:leftshu},1000);
+								}else {
+									$('.feng li').eq(j).animate({left:leftshu},1000);
+								}
+							}
+							$(this).addClass('addclass').finish().css('width',675).find('.zuo').hide().siblings('.you').show();
+						}
+							//$(this).addClass('addclass');
+					}
+				});
+				
+				
+				
+				$('.cbbut_utop li').mouseenter(function (){
+					var index = $(this).index();
+					$('.cbbut_utop li').css({'border-bottom':'','color':'','background':''});
+					$(this).css({'border-bottom':'1px solid white','color':'#f60','background':'white'});
+					$('.cbbut_ubottom:eq(' + index +')').show().siblings('.cbbut_ubottom').hide();
+				});
+				
+				cb_lunbo();
+				
+				//.................cotc------------cotg...................................................
+				$('.cot_chonghua li').hover(function (){
+					$(this).find('img').css("top",-40);
+				},function (){
+					$(this).find('img').css("top",0);
+				});
+				
+				$('.cot_chongbiao li').mouseenter(function (){
+					var leftzhi = $(this).position().left;
+					var wen = $(this).text();
+					var index = $(this).index() + 1;
+					$(this).closest('.cot_chongti').find('.cot_chongzhe').css({left:leftzhi}).show().text(wen);
+					$(this).closest('.cot_chongti').find('[class*=tine' + index + ']').show().siblings('[class*=tine]').hide();
+				});
+				$('.cot_chongti').mouseleave(function (){
+				});
+				
+				cotc_lunbo();
+				cotd_lunbo();
+				cote_lunbo();
+				cotf_lunbo();
+				cotg_lunbo();
+				//.............................点击回到顶部..................................................
+				
+				$(window).scroll(function (){
+					$('.totop').hide();
+					tops = $(window).scrollTop();
+					if(tops >=200){
+						$('.totop').show();
+					}
+				});
+				$('.totop').click(function (){
+					$('body').animate({scrollTop:0},1000,function (){});
+					$('html').animate({scrollTop:0},1000,function (){});
+				});
+				//........................foot...............................
+				
+			})
+		</script>
+	</head>
+	<body>
+		<div class="head">
+			<div class="header">
+				<div class="headnei">
+					<ul class="headzuo">
+						<li class="headzuo1"><a href="#">掌上新蛋</a></li>
+						<li class="headzuo2"><a href="#">企业团购</a></li>
+					</ul>
+					<div class="headyou">
+						<div class="head_zhanghao"></div>
+						<span><a href="zhuce.html?ye=shouye.html">注册</a>| <a href="denglu.html?ye=shouye.html">登录</a>晚上好，欢迎来新蛋购物！</span>
+						<ul class="headyounei">
+							<li><a href="#">我的订单</a></li>
+							<li class="headyl">
+								<div class="headduo">
+									<a class="headyouspa headyouspa1" href="#">我的新蛋</a>
+									<div class="tubj"><img src="img/headery1.png"></div>
+								</div>
+								<div class="yindiv yindiv1">请 <a href="denglu.html?ye=shouye.html">登录</a> 后查看</div>
+							</li>
+							<li><a href="#">帮助中心</a></li>
+							<li class="headyl">
+								<div class="headduo">
+									<a class="headyouspa headyouspa2" href="#">客户服务</a>
+									<div class="tubj"><img src="img/headery1.png"></div>
+								</div>
+								<div class="yindiv yindiv2">
+									<p class="yinp1">400-820-4400</p><b>021-67072999</b><p>每天 9:00-18:00</p>
+									<div class="zixun"><a href="#"  class="zixuna1">在线咨询</a><a href="#">联系我们</a></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="headmiddle">
+				<a href="shouye.html"><img class="logo" src="img/logo.jpg" alt="网页LOGO标志" title=""/></a>
+				<div class="headmiddlebox">
+					<div class="shou"><input type="text" id="" placeholder="苹果新品 优惠价来袭"/><p>搜索</p></div>
+					<ul class="shouxia">
+						<li class="sxial"><a href="#">移动硬盘</a></li>
+						<li><a href="#">MacBook</a></li>
+						<li><a href="#">mate8</a></li>
+						<li><a href="#">Thinkpad</a></li>
+						<li class="sxiar"><a href="#">行车记录仪</a></li>
+					</ul>
+				</div>
+				<a href="#"><img class="qitian" src="img/qitian.gif" alt="七天退货图" title=""/></a>
+			</div>
+			<div class="headbottom">
+				<div class="nav">
+					<div class="nava navleft"><a class="nava-jia" href="#" >全部商品分类</a></div>
+					<div class="navas navright">
+						<div class="headnduo">
+							<div class="nrbg nrbgl">
+								<a class="nright nrightl " href="#">购物车 <b>0 </b>件</a>
+								<div class="headnbj headnbj1"><img class="headnbjp" src="img/navy.png"></div>
+							</div>
+							<div class="nrg nrgl">
+								<div class="lian-box"><br /><a id='goulian' href="gouwuche.html?ye=shangpin.html">您还没有购买商品。快去挑选吧!</a></div>
+								<div class="nr-box">
+									<div class="shan"><img src=""><p></p><p></p></div>
+									<div class="xugou"><a href="gouwuche.html">前往购物车&gt;&gt;</a></div>
+								</div>
+							</div>
+						</div>
+						<div class="headnduo">
+							<div class="nrbg nrbgr">
+								<a class="nright nrightr" href="#">收藏提醒</a>
+								<div class="headnbj headnbj2"><img class="headnbjp" src="img/navy.png"></div>
+							</div>
+							<div class="nrg nrgr"><p>请登陆后查看</p><a href="denglu.html?ye=shouye.html">登录</a></div>
+							
+						</div>
+					</div>
+					<ul class="navmiddle">
+						<li><a href="#">首页</a></li>
+						<li><a href="#">限时抢购</a></li>
+						<li><a href="#">团团赚</a></li>
+						<li><a href="#">海外直购</a></li>
+						<li><a href="#">爱车配</a></li>
+						<li><a href="#">二手车库</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="contenta">
+			<div class="xuan">
+				<ul class="xuan_u1">
+					<li class="xuan_u1_li xuan_u1_lia">
+						<div class="xuan_shou">
+							<img class="xuan_bei bei1" src="img/cota1.png">
+							<h5><a href="#">海外直购</a><img src="img/cota6.png"/></h5>
+						</div>
+						<ul class="xuan_u2"><li><a class="spacA" href="#">影音</a><a class="spacA" href="#">固态硬盘</a><a href="#">奶粉</a></li></ul>
+					</li>
+					<li class="xuan_u1_li xuan_u1_lib">
+						<div class="xuan_shou">
+							<img class="xuan_bei bei2" src="img/cota2.png"/>
+							<h5><a href="#">手机</a><a href="#">摄影</a><a href="#">苹果</a><img src="img/cota6.png"/></h5>
+						</div>
+						<ul class="xuan_u2"><li><a class="spacA" href="#">智能手机</a><a href="#">微单</a><a class="spacA" href="#">上网卡</a></li></ul>
+					</li>
+					<li class="xuan_u1_li xuan_u1_lic">
+						<div class="xuan_shou">
+							<img class="xuan_bei bei3" src="img/cota3.png"/>
+							<h5><a href="#">电脑</a><a href="#">外设</a><a href="#">办公</a><img src="img/cota6.png"/></h5>
+						</div>
+						<ul class="xuan_u2"><li><a class="spacA" href="#">笔记本</a><a class="spacA" href="#">路由器</a><a href="#">耳机</a></li></ul>
+					</li>
+					<li class="xuan_u1_li xuan_u1_lid">
+						<div class="xuan_shou">
+							<img class="xuan_bei bei4" src="img/cota4.png"/>
+							<h5><a href="#">家用电器</a><img src="img/cota6.png"/></h5>
+						</div>
+						<ul class="xuan_u2"><li><a href="#">电饭煲</a><a class="spacA" href="#">电视</a><a href="#">净水器</a></li></ul>
+					</li>
+					<li class="xuan_u1_li xuan_u1_lispac">
+						<div class="xuan_u1_lispnei">
+							<div class="xuan_shou">
+								<img class="xuan_bei bei5" src="img/cota5.png"/>
+								<h5><a href="#">生活百货</a><img src="img/cota6.png"/></h5>
+							</div>
+							<ul class="xuan_u2 xuan_u2spac">
+								<li class="xuan_u2_li1"><a class="spacA" href="#">汽车用品</a><a href="#">个护清洁</a></li>							
+								<li class="xuan_u2_li2"><a href="#">家居</a><a href="#">厨用</a><a href="#">钟表</a><a href="#">礼品</a></li>
+								<li class="xuan_u2_li3"><a href="#">男装</a><a href="#">女装</a><a href="#">内衣</a><a href="#">珠宝</a></li>
+								<li class="xuan_u2_li4"><a href="#">母婴</a><a href="#">玩具</a><a href="#">食品</a><a href="#">酒饮</a></li>
+								<li class="xuan_u2_li5"><a href="#">鞋靴</a><a href="#">箱包</a><a href="#">运动</a><a href="#">户外</a></li>
+								<div class="zhegai2"></div>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<div class="yinbox">
+					<div class="yin" id="yin1">
+						<table border="0" cellspacing="0" cellpadding="0" class="yitb">
+						</table>
+						<div class="yizt">
+							<h4>热门品牌</h4><ul class="yiz_ul"></ul>
+						</div>
+					</div>
+				</div>
+				<div class="zhegai"></div>
+			</div>
+			<div class="lunaa">
+				<ul class="lunaax">
+					<li class="addshan"><a href="#"><img src="img/cota/cotam1.jpg"></a></li>
+					<li><a href="#"><img src="img/cota/cotam2.jpg"></a></li>
+					<li><a href="#"><img src="img/cota/cotam3.jpg"></a></li>
+					<li><a href="#"><img src="img/cota/cotam4.jpg"></a></li>
+					<li><a href="#"><img src="img/cota/cotam5.jpg"></a></li>
+				</ul>
+				<ul class="lunaadj">
+					<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>
+				</ul>
+			</div>
+			<div class="lunab">
+				<ul class="lunabx">
+					<li><a href="#"><img src="img/cota/cotay1.jpg"/></a></li>
+					<li><a href="#"><img src="img/cota/cotay2.jpg"/></a></li>
+					<li><a href="#"><img src="img/cota/cotay3.jpg"/></a></li>
+					<li><a href="#"><img src="img/cota/cotay4.jpg"/></a></li>
+					<li><a href="#"><img src="img/cota/cotay5.jpg"/></a></li>
+				</ul>
+				<ul class="lunabj">
+					<li></li><li></li><li></li><li></li><li></li>
+				</ul>
+			</div>
+			<div class="ca_xbao">
+				<div class="ca_xqian">
+					<h2>限时抢购</h2>
+					<h4><a href="#">更多抢购商品</a></h4>
+				</div>
+				<div class="lunacbox">
+					<div class="ca_dlun1"><img src="img/cota/ca_dlun1.png"></div>
+					<div class="lunac">
+						<ul class="cabut_ubottom cabut_ub1">
+							<li>
+								<div class="catu"><a href="#"><img class="catu_tu" src="img/cota/ca_ltu1.jpg"></a></div>
+								<p><a href="#">DELL 戴尔 Vostro 3650-R1308 含19.5寸显示器 电脑整机-I3-6100/4G/500G/DVDRW/WIN10</a></p>
+								<h3>￥2999.00</h3>
+							</li>
+							<li>
+								<div class="catu"><a href="#"><img class="catu_tu" src="img/cota/ca_ltu2.jpg"></a></div>
+								<p><a href="#">输入蛋券sm60,满1500减30,满3000减60元,活动至10.31,限时限量,GOGOGO!</a></p>
+								<h3>￥5199.00</h3>
+							</li>
+							<li>
+								<div class="catu"><a href="#"><img class="catu_tu" src="img/cota/ca_ltu3.jpg"></a></div>
+								<p><a href="#">博朗 Braun 欧乐B D16.523U 600 3D声波智能电动牙刷 蓝色版</a></p>
+								<h3>￥299.00</h3>
+							</li>
+							<li>
+								<div class="catu"><a href="#"><img class="catu_tu" src="img/cota/ca_ltu4.jpg"></a></div>
+								<p><a href="#">【新蛋自营 正品保障】新品上市 全身按摩揉捏</a></p>
+								<h3>￥259.00</h3>
+							</li>
+							<li>
+								<div class="catu"><a href="#"><img class="catu_tu" src="img/cota/ca_ltu5.jpg"></a></div>
+								<p><a href="#">下单输入蛋券 bh50 即享满100减5元 可累计50元封顶</a></p>
+								<h3>￥4599.00</h3>
+							</li>
+							<li>
+								<div class="catu"><a href="#"><img class="catu_tu" src="img/cota/ca_ltu6.jpg"></a></div>
+								<p><a href="#">下单输入蛋券编码 bh50 ,即享满100减5元,可累计,50元封顶</a></p>
+								<h3>￥2199.00</h3>
+							</li>
+						</ul>
+						
+					</div>
+					<div class="ca_dlun2"><img src="img/cota/ca_dlun2.png"></div>			
+				</div>
+			</div>
+			<img class="ca_ytu" src="img/cota/230x218_1.jpg"/>	
+			<div class="totop"><img src="img/toTop.gif"></div>
+		</div>
+		
+		
+		
+		<div class="cotb">
+			<div class="cotb_top">
+				<div class="top_bao"><h1>好评热品</h1><span class="remen">热门好评商品，不要错过哦</span></div>
+				<div class="feng">
+					<ul>
+						<li class="fxian1 addclass">
+							<div class="fxiannei">
+								<div class="zuo">
+									<div class="zshou">Logitech 罗技 G402 高速追踪</div>
+									<p>推荐对98%</p>
+									<p>70人已评论</p>
+									<img src="img/contb/feng1a.jpg">
+								</div>
+								<div class="you">
+									<div class="ytu">
+										<a class="youtu" href="#"><img src="img/contb/feng1a.jpg" alt="" /></a>
+									</div>
+									<div class="ynei">
+										<div class="ybiao"><span>推荐对98%</span><a href="#">Logitech 罗技 G402 高速追踪游戏鼠标</a></div>
+										<p>发货速度很快，用的很舒服，最关键的是价格问题，我觉得真的很值得拥有，全网最低价入的。</p>
+										<div class="di">
+											<a href="#"><img src="img/contb/cotb_dan1.jpg"><span>[70]</span></a>
+											<div class="piny"><span>小**975</span><img src="img/contb/cotb_tu1.jpg"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="fxian2">
+							<div class="fxiannei">
+								<div class="zuo">
+									<div class="zshou">Apple 苹果 iPad Pro WLAN版 9.7英寸 128GB 玫瑰金色 MM192CH/A</div>
+									<p>推荐对100%</p>
+									<p>10人已评论</p>
+									<img src="img/contb/feng2a.jpg">
+								</div>
+								<div class="you">
+									<div class="ytu">
+										<a class="youtu" href="#"><img src="img/contb/feng2a.jpg" alt="" /></a>
+									</div>
+									<div class="ynei">
+										<div class="ybiao"><span>推荐对100%</span><a href="#">Apple 苹果 iPad Pro WLAN版 9.7英寸 128GB 玫瑰金色 MM192CH/A</a></div>
+										<p>包装很好，非常漂亮的东西!第一次用苹果家的东西,对系统还不太熟悉,但是用起来十分流畅。游戏玩起来很好。屏幕大看起来也舒服。电量也十分充足!重要的是送货好快，第二天早上就收到咯！</p>
+										<div class="di">
+											<a href="#"><img src="img/contb/cotb_dan1.jpg"><span>[10]</span></a>
+											<div class="piny"><span>xiaoyiyi11</span><img src="img/contb/cotb_tu2.jpg"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="fxian3">
+							<div class="fxiannei">
+								<div class="zuo">
+									<div class="zshou">HUAWEI 华为 Mate8 NXT-AL10 摩卡金 全网通版 TD-LTE 4G手机 双卡双待 内存4G+64G</div>
+									<p>推荐对96%</p>
+									<p>63人已评论</p>
+									<img src="img/contb/feng3a.jpg">
+								</div>
+								<div class="you">
+									<div class="ytu">
+										<a class="youtu" href="#"><img src="img/contb/feng3a.jpg" alt="" /></a>
+									</div>
+									<div class="ynei">
+										<div class="ybiao"><span>推荐对96%</span><a href="#">HUAWEI 华为 Mate8 NXT-AL10 摩卡金 全网通版 TD-LTE 4G手机 双卡双待 内存4G+64G</a></div>
+										<p>第二天就收到货了，打开机器非常满意，拿在手机很有质感，不愧是华为旗舰机型，麒麟950cpu运行速度快，用起来的确不错的感觉，手机的安全保密性非常严谨，屏幕分辨率和拍照效果真叫一个好！支持国产手机，支持华为~~！</p>
+										<div class="di">
+											<a href="#"><img src="img/contb/cotb_dan1.jpg"><span>[63]</span></a>
+											<div class="piny"><span>li25</span><img src="img/contb/cotb_tu1.jpg"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="fxian4">
+							<div class="fxiannei">
+								<div class="zuo">
+									<div class="zshou">National Geographic 国家地理 NG A8121 非洲系列 中型单肩包</div>
+									<p>推荐对88%</p>
+									<p>24人已评论</p>
+									<img src="img/contb/feng4a.jpg">
+								</div>
+								<div class="you">
+									<div class="ytu">
+										<a class="youtu" href="#"><img src="img/contb/feng4a.jpg" alt="" /></a>
+									</div>
+									<div class="ynei">
+										<div class="ybiao"><span>推荐对88%</span><a href="#">National Geographic 国家地理 NG A8121 非洲系列 中型单肩包</a></div>
+										<p>国家地理的包果然不错。一直很喜欢这个包的外形，但买的时候一直纠结包是否太大，也有人评论说适合高个子的。本人170身高，包比我想象中小，带起来我觉得很合适！就是我最喜欢、最适合出游的尺寸！做工很结实很上档次，超喜欢。非常赞，全满分好评！</p>
+										<div class="di">
+											<a href="#"><img src="img/contb/cotb_dan2.jpg"><span>[24]</span></a>
+											<div class="piny"><span>h**w 防御塔</span><img src="img/contb/cotb_tu3.jpg"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="cotb_but">
+				<div class="cbbut_left">
+					<ul class="cbbut_utop">
+						<li>您也许感兴趣</li>
+						<li>新品发布</li>
+						<li>发烧好评</li>
+						<li>狠惠配</li>
+					</ul>
+					
+					<ul class="cbbut_ubottom cbbut_ub1">
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtua1.jpg"></a></div>
+							<p><a href="#">亚马逊 全 新Kindle Paperwhite 3 电子书阅读器 6英寸</a></p>
+							<h3>￥909.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtua2.jpg"></a></div>
+							<p><a href="#">亚马逊 全 新Kindle Paperwhite 3 电子书阅读器 6英寸 白色</a></p>
+							<h3>￥919.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtua3.jpg"></a></div>
+							<p><a href="#">Kindle 亚马逊 voyage 6英寸高级电子书阅读器 标准版 墨水屏</a></p>
+							<h3>￥1459.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtua4.jpg"></a></div>
+							<p><a href="#">Royalstar 荣事达 YSH1836 智能wifi 养生壶  APP远程操控1.8升</a></p>
+							<h3>￥249.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtua5.jpg"></a></div>
+							<p><a href="#">飞利浦 (PHILIPS) AJ5030 创意投影双闹钟收音机</a></p>
+							<h3>￥399.00</h3>
+						</li>
+					</ul>
+					<ul class="cbbut_ubottom cbbut_ub2">
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtub1.jpg"><img class="cbtu_bei" src="img/gong/xpsf.png"></a></div>
+							<p><a href="#">Canon 佳能 EOS 80D 单反相机 含 EF-S 18-135mm f/3.5-5.6 IS USM 标准变焦镜头</a></p>
+							<h3>￥8569.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtub2.jpg"><img class="cbtu_bei" src="img/gong/xpsf.png"></a></div>
+							<p><a href="#">APPLE 苹果 iPhone7 A1660 银色 128G 移动联通电信4G手机</a></p>
+							<h3>￥5988.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtub3.jpg"><img class="cbtu_bei" src="img/gong/xpsf.png"></a></div>
+							<p><a href="#">Lowepro 乐摄宝 DroneGuard Kit 运动摄影包 棕色 可装航拍器</a></p>
+							<h3><span>￥998.00</span> ￥599.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtub4.jpg"><img class="cbtu_bei" src="img/gong/xpsf.png"></a></div>
+							<p><a href="#">Lowepro 乐摄宝 DroneGuard Kit 运动摄影包 棕色 可装航拍器</a></p>
+							<h3>￥11199.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtub5.jpg"><img class="cbtu_bei" src="img/gong/xpsf.png"></a></div>
+							<p><a href="#">JmGO 坚果 G1S 智能高清 家用投影机(3D投影电视 微型投影仪 智能影院)</a></p>
+							<h3>￥3349.00</h3>
+						</li>
+					</ul>
+					<ul class="cbbut_ubottom cbbut_ub3">
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtuc1.jpg"><img class="cbtu_bei" src="img/gong/mxsp.png"></a></div>
+							<p><a href="#">Apple 苹果 MacBook Pro 13英寸 MF839CH/A - i5 - 2.7GHz/8GB/128 闪存/Retina 显示屏</a></p>
+							<h3>￥8299.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtuc2.jpg"><img class="cbtu_bei" src="img/gong/qwdj.png"></a></div>
+							<p><a href="#">Beats Solo2 Wireless 头戴式贴耳蓝牙耳机 红色</a></p>
+							<h3>￥1599.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtuc3.jpg"><img class="cbtu_bei" src="img/gong/mxsp.png"></a></div>
+							<p><a href="#">Logitech 罗技 G900 有线/无线 双模式 游戏鼠标 RGB 鼠标</a></p>
+							<h3>￥969.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtuc4.jpg"><img class="cbtu_bei" src="img/gong/rqbk.png"></a></div>
+							<p><a href="#">Apple Watch Sport Series 1 智能手表(42毫米银色铝金属表壳搭配白色运动型 MNNL2CH/A)</a></p>
+							<h3>￥2488.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtuc5.jpg"><img class="cbtu_bei" src="img/gong/rqbk.png"></a></div>
+							<p><a href="#">National Geographic 国家地理 NG A8121 非洲系列 中型单肩包</a></p>
+							<h3>￥720.00</h3>
+						</li>
+					</ul>
+					<ul class="cbbut_ubottom cbbut_ub4">
+						<li>
+							<div class="cbtu"><a href="shangpin.html"><img class="cbtu_tu" src="img/contb/cbtub4.jpg"><img class="cbtu_bei" src="img/gong/qwdj.png"></a></div>
+							<p><a href="shangpin.html">Apple 苹果 MacBook 12英寸 MMGL2CH/A 玫瑰金色 - 1.1GHz/8GB/256GB 闪存/Retina 显示屏</a></p>
+							<h3>￥9188.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="shangpin.html"><img class="cbtu_tu" src="img/contb/cbtud1.jpg"><img class="cbtu_bei" src="img/gong/mxsp.png"></a></div>
+							<p><a href="shangpin.html">Apple 苹果 MacBook Pro 15.4英寸 MJLQ2CH/A 银色 - i7-2.2GHz/16GB/256GB 闪存/Retina 显示屏</a></p>
+							<h3>￥12888.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="shangpin.html"><img class="cbtu_tu" src="img/contb/cbtud2.jpg"><img class="cbtu_bei" src="img/gong/rxtj.png"></a></div>
+							<p><a href="shangpin.html">Bose SoundLink Mini II 蓝牙无线音箱2代 - 白色</a></p>
+							<h3><span>￥1609.00</span>￥1159.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="shangpin.html"><img class="cbtu_tu" src="img/contb/sy-splj.jpg"><img class="cbtu_bei" src="img/gong/mxsp.png"></a></div>
+							<p><a href="shangpin.html">Nikon 尼康 D750 单反相机 套机 - 含AF-S 尼克尔 24-120mm f/4G ED VR镜头</a></p>
+							<h3>￥14209.00</h3>
+						</li>
+						<li>
+							<div class="cbtu"><a href="shangpin.html"><img class="cbtu_tu" src="img/contb/cbtud5.jpg"><img class="cbtu_bei" src="img/gong/rxtj.png"></a></div>
+							<p><a href="shangpin.html">DELL 戴尔 Vostro 14-5459R-1528S 14英寸 笔记本 银色 -i5-6200U/4G/500G/GT930M-2G/Win10</a></p>
+							<h3>￥3349.00</h3>
+						</li>
+					</ul>
+				</div>
+				<div class="cbbut_right">
+					<ul class="cb_lunbbo">
+						<li><a href="#"><img src="img/contb/cbtulunbo1.jpg"></a></li>
+						<li><a href="#"><img src="img/contb/cbtulunbo2.jpg"></a></li>
+						<li><a href="#"><img src="img/contb/cbtulunbo3.jpg"></a></li>
+						<li><a href="#"><img src="img/contb/cbtulunbo4.jpg"></a></li>
+					</ul>
+					<ul class="cb_dian">
+						<li></li><li></li><li></li><li></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="cotc biaoC">
+			<div class="cotc_left">
+				<div class="cotc_ltop"><h1>海淘推荐</h1></div>
+				<div class="cotc_lbottom">
+					<ul class="ccbut_ubottom">
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotc/cotc1.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#"><img src="img/cotc/cotc_biao.png">Monster 魔声 DNA 头戴式耳机 - 碳纤维黑</a></p>
+								<h3><span>￥799.00</span> ￥319.00</h3>
+							</li>
+							<div class="cotc_lun">
+								<ul class="cotc_lunbo">
+									<li><a href="#"><img src="img/cotc/cotc_lun1.jpg"></a></li>
+									<li><a href="#"><img src="img/cotc/cotc_lun2.jpg"></a></li>
+									<li><a href="#"><img src="img/cotc/cotc_lun3.jpg"></a></li>
+									<li><a href="#"><img src="img/cotc/cotc_lun4.jpg"></a></li>
+								</ul>
+								<ul class="cotc_dian">
+									<li>1</li><li>2</li><li>3</li><li>4</li>
+								</ul>
+							</div>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotc/cotc2.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#"><img src="img/cotc/cotc_biao.png">Sennheiser 森海塞尔 HD 439 3.5mm/ 6.3mm 头戴式耳机</a></p>
+								<h3><span>￥599.00</span> ￥259.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotc/cotc3.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#"><img src="img/cotc/cotc_biao.png">Philips 飞利浦 HQ6900/41 电动剃须刀 男士三刀头剃须刀 1100系列</a></p>
+								<h3>￥229.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotc/cotc4.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#"><img src="img/cotc/cotc_biao.png">Tiger虎牌 MMN-F100-P 不锈钢运动水壶带粉红外套 1.0升</a></p>
+								<h3><span>￥219.00</span> ￥119.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotc/cotc5.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#"><img src="img/cotc/cotc_biao.png">Monster 魔声 UFC Octagon 头戴式耳机 - 红色</a></p>
+								<h3><span>￥2419.00</span> ￥579.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotc/cotc6.JPG"><img class="cctu_bei" src="img/gong/xlqg.png"></a></div>
+								<p><a href="#"><img src="img/cotc/cotc_biao.png">CORSAIR 海盗船 Vengeance LPX 32GB 288-Pin DDR4 SDRAM DDR4 2666 (PC4 21300) 内存-黑色</a></p>
+								<h3><span>￥2100.00</span> ￥1499.00</h3>
+							</li>
+					</ul>
+					<ul class="cotc_hua  cot_chonghua">  <!--重复-->
+						<li><a href="#"><img src="img/cotc/cotc_hua1.jpg"></a></li>
+						<li><a href="#"><img src="img/cotc/cotc_hua2.jpg"></a></li>
+						<li><a href="#"><img src="img/cotc/cotc_hua3.jpg"></a></li>
+						<li><a href="#"><img src="img/cotc/cotc_hua4.jpg"></a></li>
+						<li><a href="#"><img src="img/cotc/cotc_hua5.jpg"></a></li>
+						<li><a href="#"><img src="img/cotc/cotc_hua6.jpg"></a></li>
+						<li><a href="#"><img src="img/cotc/cotc_hua7.jpg"></a></li>
+						<li><a href="#"><img src="img/cotc/cotc_hua8.jpg"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="cotc_right">
+				<div class="cotc_ti  cot_chongti">  <!--重复-->
+					<span>热销榜</span>
+					<ul class="cotc_tibiao  cot_chongbiao">  <!--重复-->
+						<li>手表</li>
+						<li>笔记本</li>
+						<li>奶粉</li>
+					</ul>
+					<div class="cotc_zhe cot_chongzhe">遮盖层</div>  <!--重复-->
+					<ul class="cotc_tinei cotc_tine1">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liea1.jpg"></a><p><a href="#">美国直邮卡西欧(CA SIO)手表GA-100CF-1AJF双显世界时间防水运动手表</a></p><span>￥729.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liea2.jpg"></a><p><a href="#">美国直邮 Daniel We llington 丹尼尔·惠灵顿 摩登系列 0928DW 女式</a></p><span>￥439.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liea3.jpg"></a><p><a href="#">丹尼尔·惠灵顿 (Da niel Wellington) 0901DW 女款石英腕表  白色表盘</a></p><span>￥489.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liea4.jpg"></a><p><a href="#">Suunto 颂拓 Men's Ambit2 SS020134000 男款电子表</a></p><span>￥2029.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine2">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_lieb1.jpg"></a><p><a href="#">翻新 : DELL 戴尔 Laptop Latitude E6230 i5 3320M 4 GB 320 GB HDD 12.5" Win7</a></p><span>￥1329.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_lieb2.jpg"></a><p><a href="#">翻新: HP 惠普  B Grade 8470p i5 3320M 4 GB 250 - 320 GB HDD Win7</a></p><span>￥1239.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_lieb2.jpg"></a><p><a href="#">翻新: Lenovo ThinkPad T420 i5-2520M 2.50GHz (3.20GHz Turbo), 4GB, 320GB HDD 14寸笔记本电脑</a></p><span>￥1489.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_lieb2.jpg"></a><p><a href="#">翻新: ThinkPad X220 i5 (2nd Gen) 2.5 GHz, 4GB内存 320GB硬盘 12.1寸WIN7 64位笔记本电脑</a></p><span>￥1629.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine3">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liec1.jpg"></a><p><a href="#">英国直邮英国原装爱他美 4段 2岁+ 奶粉800G 2罐装</a></p><span>￥300.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liec2.jpg"></a><p><a href="#">荷兰直邮  Nutrilon 荷兰诺优能 婴幼儿奶粉4段(1岁+) 800g  2罐</a></p><span>￥309.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liec3.jpg"></a><p><a href="#">英国直邮英国原装爱他美 白金版 1段 0-6个月 奶粉800G</a></p><span>￥189.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotc/cotc_liec4.jpg"></a><p><a href="#">英国直邮英国原装爱他美 1段 0-6个月 奶粉900G 2罐装</a></p><span>￥300.00</span></li>
+					</ul>
+				</div>
+				<div class="cotc_mo"><a href="#"><img src="img/cotc/cotc_dibu.jpg"></a></div>
+			</div>
+		</div>
+		
+		<div class="cotc biaoD">
+			<div class="cotc_left">
+				<div class="cotc_ltop cotc_ltop2"><h1>手机·摄影</h1></div>
+				<div class="cotc_lbottom cotc_lbottom2">
+					<ul class="ccbut_ubottom">
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotd/cotd1.jpg"><img class="cctu_bei" src="img/gong/rqfq.png"></a></div>
+								<p><a href="#">FUJIFILM 富士 X-A3 XC 16-50mm 微单电套机 2420万像素 3.0英寸多点触摸屏 WIFI遥控 银黑色</a></p>
+								<h3>￥4299.00</h3>
+							</li>
+							<div class="cotc_lun cotd_lun">
+								<ul class="cotc_lunbo cotd_lunbo cotc_lunbo-6">  <!--轮播图有6张-->
+									<li><a href="#"><img src="img/cotd/cotd_lun1.jpg"></a></li>
+									<li><a href="#"><img src="img/cotd/cotd_lun2.jpg"></a></li>
+									<li><a href="#"><img src="img/cotd/cotd_lun3.jpg"></a></li>
+									<li><a href="#"><img src="img/cotd/cotd_lun4.jpg"></a></li>
+									<li><a href="#"><img src="img/cotd/cotd_lun5.jpg"></a></li>
+									<li><a href="#"><img src="img/cotd/cotd_lun6.jpg"></a></li>
+								</ul>
+								<ul class="cotc_dian cotd_dian">
+									<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li>
+								</ul>
+							</div>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotd/cotd2.JPG"><img class="cctu_bei" src="img/gong/xpth.png"></a></div>
+								<p><a href="#">Canon 佳能 EOS 5D Mark IV EF 24-70mm f/4L IS USM 全画幅单反相机 5D4 套机</a></p>
+								<h3>￥28999.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotd/cotd3.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#">Apple 苹果 iPad Pro WLAN版 9.7英寸 128GB 深空灰色 MLMV2CH/A</a></p>
+								<h3>￥5078.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotd/cotd4.JPG"><img class="cctu_bei" src="img/gong/mxsp.png"></a></div>
+								<p><a href="#">HUAWEI 华为 Mate8 NXT-AL10 香槟金 全网通版 TD-LTE 4G手机 双卡双待 内存4G+64G</a></p>
+								<h3>￥2999.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotd/cotd5.JPG"><img class="cctu_bei" src="img/gong/mxsp.png"></a></div>
+								<p><a href="#">Apple Watch Sport Series 1 智能手表(42毫米银色铝金属表壳搭配白色运动型 MNNL2CH/A)</a></p>
+								<h3>￥2488.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotd/cotd6.JPG"><img class="cctu_bei" src="img/gong/rqbk.png"></a></div>
+								<p><a href="#">MI 小米 红米Note3 深灰色 移动联通高配版 TD-LTE 4G手机 双卡双待 内存3G+32G</a></p>
+								<h3>￥999.00</h3>
+							</li>
+					</ul>
+					<ul class="cotc_hua cot_chonghua">  <!--重复-->
+						<li><a href="#"><img src="img/cotd/cotd_hua1.jpg"></a></li>
+						<li><a href="#"><img src="img/cotd/cotd_hua2.jpg"></a></li>
+						<li><a href="#"><img src="img/cotd/cotd_hua3.jpg"></a></li>
+						<li><a href="#"><img src="img/cotd/cotd_hua4.jpg"></a></li>
+						<li><a href="#"><img src="img/cotd/cotd_hua5.jpg"></a></li>
+						<li><a href="#"><img src="img/cotd/cotd_hua6.jpg"></a></li>
+						<li><a href="#"><img src="img/cotd/cotd_hua7.jpg"></a></li>
+						<li><a href="#"><img src="img/cotd/cotd_hua8.jpg"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="cotc_right">
+				<div class="cotc_ti cot_chongti">  <!--重复-->
+					<span>热销榜</span>
+					<ul class="cotc_tibiao cot_chongbiao">  <!--重复-->
+						<li>智能手机</li>
+						<li>微单</li>
+						<li>单反相机</li>
+					</ul>
+					<div class="cotc_zhe cot_chongzhe">遮盖层</div>  <!--重复-->
+					<ul class="cotc_tinei cotc_tine1">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd4.jpg"></a><p><a href="#">HUAWEI 华为 Mate8 NXT-AL10 香槟金 全网通版 TD-LTE 4G手机 双卡双待 内存4G+64G</a></p><span>￥2999.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_liea2.jpg"></a><p><a href="#">HUAWEI 华为 畅享5 TIT-AL00 纯真白 全网通 TD-LTE 4G手机 双卡双待 内存2G+16G</a></p><span>￥819.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_liea3.jpg"></a><p><a href="#">MI 小米 红米Note3 金色 移动联通高配版 TD-LTE 4G手机 双卡双待 内存3G+32G</a></p><span>￥999.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd6.jpg"></a><p><a href="#">MI 小米 红米Note3 深灰色 移动联通高配版 TD-LTE 4G手机 双卡双待 内存3G+32G</a></p><span>￥999.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine2">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_lieb1.jpg"></a><p><a href="#">Olympus 奥林巴斯 E-M5 Mark II 12-40mm 复古微单相机套机 银色</a></p><span>￥9199.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_lieb2.jpg"></a><p><a href="#">Olympus 奥林巴斯 PEN-F 复古微单相机 机身 银色</a></p><span>￥7699.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_lieb2.jpg"></a><p><a href="#">Olympus 奥林巴斯 PEN-F 17mm定焦 复古微单相机套机 银色</a></p><span>￥9469.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_lieb2.jpg"></a><p><a href="#">Olympus 奥林巴斯 E-PL7 14-42mm EZ 电动头 文艺复古微单相机套机 黑色</a></p><span>￥3099.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine3">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_liec1.jpg"></a><p><a href="#">Canon 佳能 EOS 5D MARK III 单反相机 机身</a></p><span>￥15299.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_liec2.jpg"></a><p><a href="#">Canon 佳能 EOS 6D 单反相机 机身</a></p><span>￥8799.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_liec3.jpg"></a><p><a href="#">Canon 佳能 EOS 6D 单反相机 套机 - 含 EF 24-105mm f/4L IS USM 标准变焦镜头</a></p><span>￥12899.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotd/cotd_liec4.jpg"></a><p><a href="#">Canon 佳能 EOS 6D 单反相机 套机 - 含 EF 24-70mm f/4L IS USM 标准变焦镜头</a></p><span>￥13899.00</span></li>
+					</ul>
+				</div>
+				<div class="cotc_mo"><a href="#"><img src="img/cotd/cotd_dibu.jpg"></a></div>
+			</div>
+		</div>
+		
+		<div class="cotc biaoE">
+			<div class="cotc_left">
+				<div class="cotc_ltop"><h1>电脑·平板</h1></div>
+				<div class="cotc_lbottom">
+					<ul class="ccbut_ubottom">
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cote/cote1.jpg"><img class="cctu_bei" src="img/gong/rqfq.png"></a></div>
+								<p><a href="#">SONY 索尼 PHA-3 便携式耳机放大器 解码+耳放</a></p>
+								<h3>￥3888.00</h3>
+							</li>
+							<div class="cotc_lun cote_lun">
+								<ul class="cotc_lunbo cote_lunbo cotc_lunbo-5"> <!--轮播图有5张-->
+									<li><a href="#"><img src="img/cote/cote_lun1.jpg"></a></li>
+									<li><a href="#"><img src="img/cote/cote_lun2.jpg"></a></li>
+									<li><a href="#"><img src="img/cote/cote_lun3.jpg"></a></li>
+									<li><a href="#"><img src="img/cote/cote_lun4.jpg"></a></li>
+									<li><a href="#"><img src="img/cote/cote_lun5.jpg"></a></li>
+								</ul>
+								<ul class="cotc_dian cote_dian">
+									<li>1</li><li>2</li><li>3</li><li>4</li><li>5</li>
+								</ul>
+							</div>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cote/cote2.JPG"><img class="cctu_bei" src="img/gong/smw.png"></a></div>
+								<p><a href="#">DELL INS14PR笔记本/4548B 黑色(I5-4210H/4G/500G/DRW/GTX 950M-4G/W10)</a></p>
+								<h3>￥4499.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cote/cote3.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#">DELL 戴尔 V0S 3458R 1328B 14英寸笔记本电脑 I3-4005U/4G/500G/GT820M 2G独显/DVD刻录/WIN8</a></p>
+								<h3>￥2949.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cote/cote4.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#">ThinkPad X1 CARBON 20FBA00ACD 14英寸笔记本 - i5-6200u/8G/256G SSD/Win10</a></p>
+								<h3>￥9599.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cote/cote5.JPG"><img class="cctu_bei" src="img/gong/mxsp.png"></a></div>
+								<p><a href="#">TP-LINK 普联 TL-H29RA&TL-H29EA HyFi智能高速无线套装</a></p>
+								<h3>￥299.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cote/cote6.JPG"><img class="cctu_bei" src="img/gong/xlqg.png"></a></div>
+								<p><a href="#">【好礼相赠 送完即止】WD 西部数据 MY PASSPORT ULTRA 升级版 2.5英寸 USB 3.0 1TB 野莓红 移动硬盘 WDBGPU0010BBY</a></p>
+								<h3>￥499.00</h3>
+							</li>
+					</ul>
+					<ul class="cotc_hua cot_chonghua">  <!--重复-->
+						<li><a href="#"><img src="img/cote/cote_hua1.jpg"></a></li>
+						<li><a href="#"><img src="img/cote/cote_hua2.jpg"></a></li>
+						<li><a href="#"><img src="img/cote/cote_hua3.jpg"></a></li>
+						<li><a href="#"><img src="img/cote/cote_hua4.jpg"></a></li>
+						<li><a href="#"><img src="img/cote/cote_hua5.jpg"></a></li>
+						<li><a href="#"><img src="img/cote/cote_hua6.jpg"></a></li>
+						<li><a href="#"><img src="img/cote/cote_hua7.jpg"></a></li>
+						<li><a href="#"><img src="img/cote/cote_hua8.jpg"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="cotc_right">
+				<div class="cotc_ti cot_chongti">  <!--重复-->
+					<span>热销榜</span>
+					<ul class="cotc_tibiao cot_chongbiao">  <!--重复-->
+						<li>笔记本</li>
+						<li>固态硬盘</li>
+						<li>路由器</li>
+					</ul>
+					<div class="cotc_zhe cot_chongzhe">遮盖层</div>  <!--重复-->
+					<ul class="cotc_tinei cotc_tine1">
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liea1.jpg"></a><p><a href="#">Lenovo 联想 拯救者ISK 15.6英寸进取版 I5-6300HQ/8G/1T/GTX960M-4G/IPS/WIN10</a></p><span>￥5599.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liea2.jpg"></a><p><a href="#">Lenovo 联想 拯救者ISK 15.6英寸经典版 I7-6700HQ/8G/1T+128GSSD/GTX960M-4G/IPS/背光键盘</a></p><span>￥7399.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liea3.jpg"></a><p><a href="#">ThinkPad X250 20CLA455CD 12.5英寸笔记本 - i3-5010u/4G/500GB/指纹/蓝牙/6芯/win10</a></p><span>￥5088.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liea4.jpg"></a><p><a href="#">DELL 戴尔 Vostro 14-5459R-1528S 14英寸 笔记本 银色 -i5-6200U/4G/500G/GT930M-2G/Win10</a></p><span>￥4299.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine2">
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_lieb1.jpg"></a><p><a href="#">TOSHIBA 东芝 Q300系列 120G 固态硬盘 HDTS812AZSTA - 2.5英寸 SATAIII(6.0Gb/s) 7mm</a></p><span>￥309.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_lieb2.jpg"></a><p><a href="#">Tigo 金泰克 S300系列 120G SSD固态硬盘 - 2.5英寸 SATAIII(6.0Gb/s) 7mm</a></p><span>￥269.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_lieb3.jpg"></a><p><a href="#">SanDisk 闪迪 Z410系列 120G SSD固态硬盘 SD8SBBU-120G-1122 - 2.5英寸 SATAIII(6.0Gb/s) 7mm</a></p><span>￥309.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_lieb1.jpg"></a><p><a href="#">TOSHIBA 东芝 Q300系列 240G 固态硬盘 HDTS824AZSTA - 2.5英寸 SATAIII(6.0Gb/s) 7mm</a></p><span>￥469.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine3">
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liec1.jpg"></a><p><a href="#">FAST 迅捷 FWR310 11N无线宽带路由器</a></p><span>￥57.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liec2.jpg"></a><p><a href="#">NETGEAR 网件 WNR2000 802.11N 300M无线路由器</a></p><span>￥111.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liec3.jpg"></a><p><a href="#">NETGEAR 网件 R6300 Wireless AC 双频千兆无线路由器 V2版</a></p><span>￥699.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cote/cote_liec4.jpg"></a><p><a href="#">TP-LINK 普联 TL-WR880N 450M无线路由器</a></p><span>￥149.00</span></li>
+					</ul>
+				</div>
+				<div class="cotc_mo"><a href="#"><img src="img/cote/cote_dibu.jpg"></a></div>
+			</div>
+		</div>
+		
+		<div class="cotc biaoF">
+			<div class="cotc_left">
+				<div class="cotc_ltop cotc_ltop2"><h1>家用·生活电器</h1></div>
+				<div class="cotc_lbottom cotc_lbottom2">
+					<ul class="ccbut_ubottom">
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotf/cotf1.jpg"><img class="cctu_bei" src="img/gong/hprc.png"></a></div>
+								<p><a href="#">SUPOR 苏泊尔 CFXB40FC18-75 电饭煲 4L 新晶钢陶晶内胆天然红外加热 米饭香甜更好吃</a></p>
+								<h3>￥259.00</h3>
+							</li>
+							<div class="cotc_lun cotf_lun">
+								<ul class="cotc_lunbo cotf_lunbo">
+									<li><a href="#"><img src="img/cotf/cotf_lun1.jpg"></a></li>
+									<li><a href="#"><img src="img/cotf/cotf_lun2.jpg"></a></li>
+									<li><a href="#"><img src="img/cotf/cotf_lun3.jpg"></a></li>
+									<li><a href="#"><img src="img/cotf/cotf_lun4.jpg"></a></li>
+								</ul>
+								<ul class="cotc_dian cotf_dian">
+									<li>1</li><li>2</li><li>3</li><li>4</li>
+								</ul>
+							</div>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotf/cotf2.JPG"><img class="cctu_bei" src="img/gong/rqbk.png"></a></div>
+								<p><a href="#">SUPOR 苏泊尔 电热水壶 1.7L 升级不锈钢电水壶  不锈钢发热底盘 英国进口STRIX 温控器</a></p>
+								<h3>￥109.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotf/cotf3.JPG"><img class="cctu_bei" src="img/gong/jbj.png"></a></div>
+								<p><a href="#">输入蛋券: SONY55 立减400元 (数量有限先到先得)</a></p>
+								<h3>￥10299.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotf/cotf4.JPG"><img class="cctu_bei" src="img/gong/xpth.png"></a></div>
+								<p><a href="#">Westinghouse美国西屋WHJ-1901 智能储热 坐便器 全自动冲水烘干 马桶盖</a></p>
+								<h3>￥2980.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotf/cotf5.JPG"><img class="cctu_bei" src="img/gong/rqfq.png"></a></div>
+								<p><a href="#">KASRROW 凯仕乐 KSR-18升级版 颈肩乐 颈部肩部腰部 捶背按摩器 99种模式 20段力度</a></p>
+								<h3>￥198.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotf/cotf6.JPG"><img class="cctu_bei" src="img/gong/mxsp.png"></a></div>
+								<p><a href="#">【新蛋自营 正品保障】 智能气压 多频震动 远红外热敷 双选供电 享受优质睡眠</a></p>
+								<h3>￥699.00</h3>
+							</li>
+					</ul>
+					<ul class="cotc_hua cot_chonghua">  <!--重复-->
+						<li><a href="#"><img src="img/cotf/cotf_hua1.jpg"></a></li>
+						<li><a href="#"><img src="img/cotf/cotf_hua2.jpg"></a></li>
+						<li><a href="#"><img src="img/cotf/cotf_hua3.jpg"></a></li>
+						<li><a href="#"><img src="img/cotf/cotf_hua4.jpg"></a></li>
+						<li><a href="#"><img src="img/cotf/cotf_hua5.jpg"></a></li>
+						<li><a href="#"><img src="img/cotf/cotf_hua6.jpg"></a></li>
+						<li><a href="#"><img src="img/cotf/cotf_hua7.jpg"></a></li>
+						<li><a href="#"><img src="img/cotf/cotf_hua8.jpg"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="cotc_right">
+				<div class="cotc_ti cot_chongti">  <!--重复-->
+					<span>热销榜</span>
+					<ul class="cotc_tibiao cot_chongbiao" >  <!--重复-->
+						<li>平板电视</li>
+						<li>剃须刀</li>
+						<li>电饭煲</li>
+					</ul>
+					<div class="cotc_zhe cot_chongzhe">遮盖层</div>  <!--重复-->
+					<ul class="cotc_tinei cotc_tine1">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf3.jpg"></a><p><a href="#">SONY 索尼 55英寸 3840x2160超高清3D安卓 LED液晶电视 黑色 KD-55X9300D</a></p><span>￥10299.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_liea2.jpg"></a><p><a href="#">SAMSUNG 三星 UA40KU6300JXXZ 40英寸网络智能液晶平板电视 4K超高清 黑色</a></p><span>￥3199.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_liea3.jpg"></a><p><a href="#">Skyworth 创维 49G6 49英寸4色4K超高清12核智能网络液晶电视</a></p><span>￥4599.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_liea4.jpg"></a><p><a href="#">SONY 索尼 55英寸 3840x2160 4K超清安卓智能LED液晶电视 银色 KD-55X8500D</a></p><span>￥6999.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine2">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_lieb1.jpg"></a><p><a href="#">飞科剃须刀FS372</a></p><span>￥89.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_lieb2.jpg"></a><p><a href="#">飞科 理发器FC5806</a></p><span>￥59.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_lieb3.jpg"></a><p><a href="#">飞科 剃须刀 FS829</a></p><span>￥42.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_lieb1.jpg"></a><p><a href="#">FLYCO 飞科 剃须刀 FS320</a></p><span>￥65.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine3">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_liec1.jpg"></a><p><a href="#">Supor 苏泊尔 CFXB40FC833-75 立体加热电饭煲 4L</a></p><span>￥278.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_liec2.jpg"></a><p><a href="#">Joyoung 九阳 JYF-40FE65智能4L多功能电饭锅</a></p><span>￥209.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_liec3.jpg"></a><p><a href="#">SUPOR 苏泊尔 CFXB40FC825-75 柴火球釜电饭煲 4L</a></p><span>￥359.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotf/cotf_liec4.jpg"></a><p><a href="#">SUPOR 苏泊尔 CFXB30FC118-60 电饭煲 3L</a></p><span>￥239.00</span></li>
+					</ul>
+				</div>
+				<div class="cotc_mo"><a href="#"><img src="img/cotf/cotf_dibu.jpg"></a></div>
+			</div>
+		</div>
+		
+		<div class="cotc biaoG">
+			<div class="cotc_left">
+				<div class="cotc_ltop"><h1>生活·百货</h1></div>
+				<div class="cotc_lbottom">
+					<ul class="ccbut_ubottom">
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotg/cotg1.jpg"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#">德国奇蒂kiddy婴儿提篮 汽车安全座椅式提篮 0-18个月 沉思者车载提篮(蓝色)</a></p>
+								<h3>￥698.00</h3>
+							</li>
+							<div class="cotc_lun cotg_lun">
+								<ul class="cotc_lunbo cotg_lunbo cotc_lunbo-3"><!--轮播图有3张-->
+									<li><a href="#"><img src="img/cotg/cotg_lun1.jpg"></a></li>
+									<li><a href="#"><img src="img/cotg/cotg_lun2.jpg"></a></li>
+									<li><a href="#"><img src="img/cotg/cotg_lun3.jpg"></a></li>
+								</ul>
+								<ul class="cotc_dian cotg_dian">
+									<li>1</li><li>2</li><li>3</li>
+								</ul>
+							</div>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotg/cotg2.JPG"><img class="cctu_bei" src="img/gong/xpth.png"></a></div>
+								<p><a href="#">车用救援 带破窗锥</a></p>
+								<h3><span>￥848.00</span>￥463.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotg/cotg3.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#">永久26寸折叠山地自行车YE890型 军绿色</a></p>
+								<h3>￥1149.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotg/cotg4.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#">下单输入蛋券编码 bh50 ,即享满100减5元,可累计,50元封顶</a></p>
+								<h3>￥1888.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotg/cotg5.JPG"><img class="cctu_bei" src="img/gong/rxtj.png"></a></div>
+								<p><a href="#">逸轩家纺 全棉床上用品 法式浪漫田园纯棉印花床单式四件套 清雅丽人1.5米-1.8米床通用</a></p>
+								<h3>￥189.00</h3>
+							</li>
+							<li class="ccbut_ubli">
+								<div class="cctu"><a href="#"><img class="cctu_tu" src="img/cotg/cotg6.JPG"><img class="cctu_bei" src="img/gong/rqfq.png"></a></div>
+								<p><a href="#">下单输入蛋券编码 bh50 ,即享满100减5元,可累计,50元封顶</a></p>
+								<h3>￥170.00</h3>
+							</li>
+					</ul>
+					<ul class="cotc_hua cot_chonghua">  <!--重复-->
+						<li><a href="#"><img src="img/cotg/cotg_hua1.jpg"></a></li>
+						<li><a href="#"><img src="img/cotg/cotg_hua2.jpg"></a></li>
+						<li><a href="#"><img src="img/cotg/cotg_hua3.jpg"></a></li>
+						<li><a href="#"><img src="img/cotg/cotg_hua4.jpg"></a></li>
+						<li><a href="#"><img src="img/cotg/cotg_hua5.jpg"></a></li>
+						<li><a href="#"><img src="img/cotg/cotg_hua6.jpg"></a></li>
+						<li><a href="#"><img src="img/cotg/cotg_hua7.jpg"></a></li>
+						<li><a href="#"><img src="img/cotg/cotg_hua8.jpg"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="cotc_right">
+				<div class="cotc_ti cot_chongti">  <!--重复-->
+					<span>热销榜</span>
+					<ul class="cotc_tibiao cot_chongbiao">  <!--重复-->
+						<li>机油</li>
+						<li>箱包</li>
+						<li>锅具</li>
+					</ul>
+					<div class="cotc_zhe cot_chongzhe">遮盖层</div>  <!--重复-->
+					<ul class="cotc_tinei cotc_tine1">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg3.jpg"></a><p><a href="#">Castrol 嘉实多 极护全合成机油 钛流体技术  SN 5W-40 4L</a></p><span>￥338.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_liea2.jpg"></a><p><a href="#">LIQUI MOLY 力魔 顶技4100 5W-40 3700 1L</a></p><span>￥98.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_liea3.jpg"></a><p><a href="#">shell 壳牌 轿车发动机油 Helix Ultra (灰喜力) 5W40 SN 1L</a></p><span>￥96.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_liea4.jpg"></a><p><a href="#">shell 壳牌 轿车发动机油 Helix HX7 (蓝喜力) SN 5W40 4L</a></p><span>￥228.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine2">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_lieb1.jpg"></a><p><a href="#">范罗士(Fellowes) 男女多功休闲精致小挎包iPad mini包 黑色 8281106</a></p><span>￥59.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_lieb2.jpg"></a><p><a href="#">SWISSWIN 瑞士十字 多功能双肩电脑包 旅行包 sw9017 黑色</a></p><span>￥99.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_lieb3.jpg"></a><p><a href="#">SWISSWIN 瑞士十字 A4商务单肩包男士斜挎包 英伦包包单肩男包 SW9402</a></p><span>￥99.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_lieb1.jpg"></a><p><a href="#">森泰斯 SUMDEX 16寸 +iPad商务旅行双肩电脑包NON-157BK黑色</a></p><span>￥668.00</span></li>
+					</ul>
+					<ul class="cotc_tinei cotc_tine3">
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_liec1.jpg"></a><p><a href="#">炊大皇 蒸滋味三层锅28cm</a></p><span>￥159.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_liec2.jpg"></a><p><a href="#">炊大皇 无油烟不粘锅 32CM    WG15136</a></p><span>￥119.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_liec3.jpg"></a><p><a href="#">炊大皇 美式奶锅16cm</a></p><span>￥49.00</span></li>
+						<li><a class="cotc_tbao" href="#"><img src="img/cotg/cotg_liec4.jpg"></a><p><a href="#">WNL 万年利 不锈钢炒锅平底不粘锅无油烟无涂层电磁炉通用厨具 WNL-ZZB032</a></p><span>￥299.00</span></li>
+					</ul>
+				</div>
+				<div class="cotc_mo"><a href="#"><img src="img/cotg/cotg_dibu.jpg"></a></div>
+			</div>
+		</div>
+		
+		<div class="foot">
+			<div class="foota">
+				<a href="#"><img class="sek1" src="img/b1.gif"/></a>
+				<a href="#"><img class="sek2" src="img/b2.gif"/></a>
+				<a href="#"><img class="sek3" src="img/b3.gif"/></a>
+				<a href="#"><img class="sek4" src="img/b4.gif"/></a>
+				<a href="#"><img class="sek5" src="img/b5.gif"/></a>
+			</div>
+			<div class="footb">
+				<div class="er erm"><img src="img/erm.png"><h2>掌上新蛋</h2><p>手机扫描二维码</p><p>免费下载新单商城</p></div>
+				<div class="er erc"><img src="img/erc.png"><h2>新蛋微信公众号</h2><p>使用微信扫描一下</p><p>或找微信号：Newegg_China</p></div>
+				<div class="foot_you"><img src="img/youtb.png"><h2>订阅新蛋优惠信息</h2><a href="#">分类订阅</a><img class="youjian1" src="img/youj.png"/><a href="#">咨询导购</a><img class="youjian2" src="img/youj.png"/><input type="text" id="" placeholder="输入Email地址" /><p>订阅</p></div>
+				<div class="guan"><h2>关注我们：</h2><a href="#"><img src="img/guan1.png"></a><a href="#"><img src="img/guan2.png"></a></div>
+			</div>
+			<div class="footc">
+				<div class="ftul ftult">
+					<p>新手上路</p>
+					<ul>
+						<li><a href="#">怎么购物</a></li>
+						<li><a href="#">支付常见问题</a></li>
+						<li><a href="#">没运费政策</a></li>
+						<li><a href="#">发票须知</a></li>
+						<li><a href="#">签收验货流程</a></li>
+						<li><a href="#">用户评价/咨询</a></li>
+						<li><a href="#">大件商品订购流程</a></li>
+					</ul>
+				</div>
+				<div class="ftul">
+					<p>售后服务</p>
+					<ul>
+						<li><a href="#">退换货政策</a></li>
+						<li><a href="#">订单查询</a></li>
+						<li><a href="#">售后申请</a></li>
+					</ul>
+				</div>
+				<div class="ftul">
+					<p>特色服务</p>
+					<ul>
+						<li><a href="#">关于会员制</a></li>
+						<li><a href="#">价格保护</a></li>
+					</ul>
+				</div>
+				<div class="ftul">
+					<p>申请合作</p>
+					<ul>
+						<li><a href="#">申请成为供应商</a></li>
+						<li><a href="#">申请入驻开放平台</a></li>
+						<li><a href="#">友情合作</a></li>
+						<li><a href="#">网站联盟</a></li>
+						<li><a href="#">企业客户</a></li>
+					</ul>
+				</div>
+				<div class="ftul ftulb">
+					<p>关于我们</p>
+					<ul>
+						<li><a href="#">新蛋集团</a></li>
+						<li><a href="#">联系我们</a></li>
+						<li><a href="#">诚聘英才</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footd">
+				<img src="img/foottu1.png">
+				<img src="img/foottu2.png">
+				<img src="img/foottu3.png">
+				<img src="img/foottu4.png">
+				<img src="img/foottu5.png">
+			</div>
+			<div class="footd_box">
+				<p class="foorlian">新蛋集团网站：<a href="#">美国新蛋</a><a href="#">中国新蛋</a><a href="#">加拿大新蛋</a><a href="#">新蛋软件</a><a href="#"></a></p>
+			</div>	
+			<p class="banquan"><span class="span1">&copy; 2001-2016 </span><span>新蛋商贸（上海）有限公司 </span><span>版权所有 </span><a href="#">沪ICP备：16033615</a></p>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+	</body>
+</html>

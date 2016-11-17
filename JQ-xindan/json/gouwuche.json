@@ -1,0 +1,44 @@
+[	
+	{
+		"id" : "nikon_d750_黑色_24-120套机",
+		"address" : "shangpin.html",
+		"tu": "img/shangpin/sp_shanga2.jpg",
+		"name" : "Nikon 尼康 D750 单反相机 套机 - 含AF-S 尼克尔 24-120mm f/4G ED VR镜头[颜色：黑色 | 列表：24-120套机]"
+		 },
+	{
+		"id" : "nikon_d750_灰色_24-120套机",
+		"address" : "shangpin.html",
+		"tu": "img/shangpin/sp_shanga2.jpg",
+		"name" : "Nikon 尼康 D750 单反相机 套机 - 含AF-S 尼克尔 24-120mm f/4G ED VR镜头[颜色：灰色 | 列表：24-120套机]"
+		 },
+	{
+		"id" : "Apple_MMGL2CH/A_玫瑰金色_256GB ",
+		"address" : "shangpin.html",
+		"tu": "img/contb/cbtub4.jpg",
+		"name" : "Apple 苹果 MacBook 12英寸 MMGL2CH/A -  闪存/Retina 显示屏[颜色：玫瑰金色 | 内存：256GB]"
+		 },
+	{
+		"id" : "Apple_MJLQ2CH/A_银色_256GB",
+		"address" : "shangpin.html",
+		"tu": "img/contb/cbtud1.jpg",
+		"name" : "Apple 苹果 MacBook Pro 15.4英寸 MJLQ2CH/A -  闪存/Retina 显示屏[颜色：银色 | 内存：256GB]"
+		 },
+	{
+		"id" : "Bose_蓝牙无线音箱2代_白色",
+		"address" : "shangpin.html",
+		"tu": "img/contb/cbtud2.jpg",
+		"name" : "Bose SoundLink Mini II 蓝牙无线音箱2代 [颜色：白色 ]"
+		 },
+	{
+		"id" : "Canon_EOS 80D_18-200套机",
+		"address" : "shangpin.html",
+		"tu": "img/contb/cbtud3.jpg",
+		"name" : "Canon 佳能 EOS 80D 单反相机 含 EF-S f/3.5-5.6 IS 远摄变焦镜头[列表：18-200套机]"
+		 },
+	{
+		"id" : "DELL_14-5459R-1528S_银色_500G",
+		"address" : "shangpin.html",
+		"tu": "img/contb/cbtud5.jpg",
+		"name" : "DELL 戴尔 Vostro 14-5459R-1528S 14英寸 笔记本 -2G/Win10[颜色：银色 | 内存：500GB]"
+		 }
+	]

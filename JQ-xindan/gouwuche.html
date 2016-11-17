@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{width: 100%;height: 100%;font-size:12px;}
+			body,ul,li,span,p,input,h1,h2,h3,h4,h5,h6,b{margin: 0;padding: 0;}
+			p{line-height: 13px;}
+			img{display: block;border:0;}
+			ul{list-style: none;}
+			a{text-decoration: none;color:black;}
+			
+			.g_nav{width:980px;height: 96px;margin:20px auto;}
+			.logo{float: left;margin:0;}
+			.g_xin{float: right;color:#808080;}
+			.g_xin p{float: left;margin:10px 0 0;}
+			.g_xin img{float: left;margin:10px 0 0;}
+			.g_xin span{margin:0 10px 0 0;line-height: 31px;}
+			.g_xin span a:hover{text-decoration: underline;color:#039;}
+			.g_zhanghao{color:#039;margin:0 5px 0 0;font-size:16px;}
+			.g_ji{float: right;color:#808080;}
+			.g_ji span a{color:#039;}
+			.g_ji span a:hover{color:#f90;}
+			
+			.g_content{width:100%;height: auto;}
+			.g_jin{width:100%;line-height: 19px;height: 19px;position: relative;margin:0 0 60px;}
+			.g_jinm{width:500px;height: 18px;position: absolute;top:0px;left:50%;margin-left:-250px;margin-right:-250px;padding:0 5px 0 5px;background: white;}
+			.g_bao{width:18px;height:18px;position: relative;float: left;}
+			.g_bao p{width:50px;text-align:center;color:gray;position: absolute;top:30px;left:50%;margin-right:-25px;margin-left:-25px;}
+			.gxian{width:212px;line-height: 19px;display:block;height:1px;line-height: 18px;float: left;margin:8px 5px 9px;background: gray;}
+			.g_wxian{width:100%;height: 1px;background: gray;margin: 0 0;position: absolute;top:8px;left:0;}
+			.g_jinm .addse{color:black;}
+			
+			.g_gou{width:960px;height: auto;margin:0 auto;box-shadow: 3px 3px 6px gray;}
+			.g_big{width:100%;height: 100%;border-collapse: collapse;display:none;}   /*被隐藏*/
+			.g_big th{height: 32px;text-align: left;text-indent: 10px;}  
+			.g_tz{width:781px;}
+			.g_ty{width:176px;background: #ffffcc;}
+			.g_thang{height: 185px;}
+			.g_small{width:100%;height: 100%;}
+			.g_smas{height: 30px;}
+			.g_smas td{}
+			.g_smas input{margin:6px 5px 0 10px;float: left;}
+			.g_smas span{display:inline-block;margin:5px 0 0;float: left;}
+			.g_smas .g_smas_spac{text-align: center;}
+			.g_smax{height: 85px;display:none;}  /*被隐藏，作为模版之用*/
+			.g_smax_duan input{float: left;margin:20px 0 0 20px;}
+			.g_smax_duan img{width:80px;height:60px;float: left;margin:0 10px 0 10px;}
+			.g_smax_duan p{float: left;width:280px;height: 30px;color:666;}
+			.g_smax_duan a:hover{color:#f30;}
+			.g_smax_duo{width:70px;text-align: center;}
+			.g_smax_duo1{color:#484848;font-size:14px;}
+			.g_smax_duo2{color:#fe8f23;font-size:14px;width:85px;}
+			.g_shu{width:36px;height: 24px;line-height: 24px;border:1px solid #999;margin:0 2px 8px 8px;text-align:center;float: left;}
+			.g_smax_duo p{float: left;color:white;background: #666;text-align: center;width:65px;line-height:16px;margin:0 0 0 2px;}
+			.g_jia{width:12px;line-height: 10px;border:1px solid #999;margin:0 8px 2px 0;float: right;cursor: pointer;}
+			.g_smax_duo .g_jian2{margin:0 8px 0 0;}
+			.g_smax .g_smax_duo a{float: right;margin:8px 5px 0 0;color:#1c459d;}
+			.g_smax_duo a:hover{color:#fe8f23;}
+			
+			.g_jiner{float: left;width:155px;line-height: 28px;margin:10px 0 0 10px;}
+			.g_jmin{float: left;}
+			.g_jshu{float: right;color:#fe8f23;font-weight:bold;font-size:14px;}
+			.g_jin_liji{width:155px;height:48px;line-height:48px ;font-size:18px;text-align:center;color:white;border-radius:3px;background:#f60;float: left;margin: 0 0 0 10px;cursor: pointer;}
+			.g_jinjixu{float: left;margin:15px 10px;}
+			.g_jinjixu a{color:#1c459d;}
+			.g_jinjixu a:hover{color:#fe8f23;}
+			.g_gy{background: #ffffcc;}
+			.g_gy .addcolor{background: #666;}  /*效果之一，替换颜色*/
+			
+			.g_yyin{width:960px;height:220px;border:1px solid #999;border-collapse: collapse;}
+			.g_yyins{height: 33px;text-align: left;text-indent:10px;}
+			.g_yyinx{text-align: center;}
+			.g_yyinx span{margin:0 0 0 10px;}
+			.g_yyinx span a{color:#1c459d;}
+			.g_yyinx span a:hover{color:#f7661f;}
+			
+			.footd_box{width:100%;height: 30px;margin:14px 0;}
+			.foorlian{width:310px;line-height:30px;margin:0 auto;}
+			.foorlian a{margin: 0 2px;}
+			.banquan{width: 440px;margin:0 auto ;font-size:13px;margin-bottom: 50px;}
+			.banquan span{margin:0 4px 0 0;font-size:12px;}
+			.banquan .span1{font-size:15px;}
+
+			.g_shan{display:none;}
+			.g_shan div{width:750px;height: 57px;margin:5px 10px;background: rgb(230,230,230);}
+			.g_shan p{overflow: hidden;padding:5px 0 5px 10px;}
+			.g_shan span{margin:0 10px 0 10px;color:#f60;}
+			.g_shan .g_chexiao{color: rgb(28,69,157);cursor: pointer;}
+			
+			.g_shanglie{width:960px;height: auto;margin:40px auto;border:1px solid #f60;}
+			.cbbut_ubottom{width:950px;height: 223px;padding:30px 0 0 10px;border:1px solid #999;border-top:0;}
+			.cbbut_ubottom li{width:150px;height: 223px;float: left;padding:0 18px;position: relative;}
+			.cbtu a{width:100%;height: 100%;}
+			.cbbut_ubottom p{width:100%;height: 26px;overflow: hidden;}
+			.cbbut_ubottom h3{color:#f60;margin:10px 0 0;}
+			.cbbut_ubottom h4{width:auto;height:20px;line-height:20px;text-align:center;color:gray;padding:5px 10px;margin:10px 0 0 50px;border:1px solid #999;cursor: pointer;}
+			.cbbut_ubottom h3 span{color:#999;font-size:10px;font-weight: normal;text-decoration: line-through;}
+			.cbtu_tu{width:144px;height: 108px;margin:0 0 3px 3px;}
+			.cbtu_bei{width:52px;height: 52px;position: absolute;top:0;right:8px;}
+			
+		</style>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			$(function (){
+				//................................继续购物按键............................................
+				/*$('.g_yyinx a').click(function (){
+					window.history.go(-1);
+					return false;
+				});*/
+				//.................................获取跳转到该页面的链接中携带带的信息.....................................................
+				var data = window.location.search;
+				if(data){
+					var arr = data.split('?');
+					var jianArr = arr[1].split('=');
+					var yemian = jianArr[1];
+				}
+				//................................cookie........................................................
+				var zhangCun = $.cookie('DENGLU');
+				if(zhangCun){
+					cunzhang();
+					$('.g_zhanghao').text(zhangCun);
+					dianji();
+				}
+				function cunzhang(){
+					
+					var strings = $.cookie('Xshangpin');
+					if(strings){
+						console.log(strings);
+						var Garr = JSON.parse(strings);   //将cookie中存放的字符串数据转化为数组
+						if(Garr){
+							
+							$('.g_yyin').hide().siblings('.g_big:eq(0)').show();
+							
+							$.get('json/gouwuche.json',function (data){
+								$.each(Garr,function (indexs,vals){//便利cookie中存放的物品id名和该物品数量
+									var nowId = vals.id;
+									var nowCount = vals.count;
+									var nowjia = parseInt(vals.jia);
+									$.each(data,function (index,val){
+										var objs = val;
+										if(objs.id == nowId){            //获取此次获取的cookie数据对象对应的json数据
+											var jiage = '￥'+ nowjia + '.00';
+											$('.g_smax:hidden').clone(true).appendTo('.g_small').show().addClass('show_g_smax');
+											$('.g_smax_duan:eq(-1)').find('img').attr('src',objs.tu).end().find('a').text(objs.name).attr('href',objs.address); //图片，信息，链接地址
+											$('.g_smax_duo1:eq(-1)').text(jiage);  //单价
+											$('.g_shu:eq(-1)').text(nowCount).attr('id',nowId);
+											var zongjia = '￥' + nowjia * $('.g_shu:eq(-1)').text() + '.00';
+											$('.g_smax_duo2:eq(-1)').text(zongjia);
+										}
+									});
+								})
+								heji();
+								
+							});
+						}
+					}
+				}
+				//.................................移入点击商品列表效果.....................................................
+				$('.cbbut_ub1 li h4').hover(function (){
+					$(this).css({'color':'#f60','border':'1px solid #f60'});
+				},function (){
+					$(this).css({'color':'','border':''});
+				});
+				//....................................点击商品列表效果..........................................................
+				//dianji();
+				function dianji(){
+					var Arr = $.cookie('Xshangpin')?JSON.parse($.cookie('Xshangpin')):[];
+					$('.cbbut_ub1 li h4').click(function (){
+						var status = false;
+						var ID = $(this).attr('id');
+						$.each(Arr, function(index,val) {
+							if(val.id == ID){    //若是之前的商品型cookie中有该类商品
+								val.count++;
+								console.log(val.count)
+								status = true;
+							}
+						});
+						if(!status){
+							var data = {};
+							data.id = ID;
+							data.count = 1;
+							data.jia = $(this).attr('class');
+							Arr.push(data);
+						}
+						$.cookie('Xshangpin',JSON.stringify(Arr),{expires:10});  //浏览器中同名cookie会自行替换掉之前的cookie，所以不必对之前的cookies进行处理
+						window.location.href = "gouwuche.html";
+					});
+				}
+				//.................................点击增减数量..........................................................
+				$('.g_jian1').click(function (){
+					var arrs = [];
+					var shu = $(this).siblings('.g_shu').text();
+					$(this).siblings('.g_shu').text(++shu);
+					var danJ = $(this).parent('.g_smax_duo').siblings('.g_smax_duo1').text();
+					arrs = danJ.split('￥');
+					var danJia = parseInt(arrs[1]);
+					var zhongJ = '￥'+ danJia * shu + '.00';
+					$(this).parent().siblings('.g_smax_duo2').text(zhongJ);
+					$('.g_smax_duan :checkbox').trigger('change');
+					cuncookie();
+				});
+				$('.g_jian2').click(function (){
+					var arrs = [];
+					var shu = $(this).siblings('.g_shu').text();
+					if(shu != 0){
+						$(this).siblings('.g_shu').text(--shu);
+					}
+					var danJ = $(this).parent('.g_smax_duo').siblings('.g_smax_duo1').text();
+					arrs = danJ.split('￥');
+					var danJia = parseInt(arrs[1]);
+					var zhongJ = '￥'+ danJia * shu + '.00';
+					$(this).parent().siblings('.g_smax_duo2').text(zhongJ);
+					$('.g_smax_duan :checkbox').trigger('change');
+					cuncookie();
+				});
+				
+				function cuncookie(){
+					var lengthS = $('.g_smax:visible').length;
+					var Arr = [];
+					var Brr = $.cookie('Xshangpin')? JSON.parse($.cookie('Xshangpin')) : [];
+					for(var i = 0; i < lengthS; i++){
+						var data = {};
+						data.id = $('.g_shu:visible').eq(i).attr('id');
+						data.count = parseInt($('.g_shu:visible').eq(i).text());
+						var jiaGE = $('.g_smax_duo1:visible').eq(i).text();
+						var jiaarr = jiaGE.split('￥');
+						data.jia = parseInt(jiaarr[1]);
+						Arr.push(data);
+						//console.log(data.id+','+data.count);
+					}
+					$.each(Brr, function(index,val) {
+						var mangZu = false;
+						$.each(Arr,function (indexs,vals){
+							if(val.id == vals.id){
+								mangZu = true;
+							}
+						})
+						if(!mangZu){
+							Arr.push(val);
+						}
+					});
+					var arrString = JSON.stringify(Arr);   //将其转化为字符串格式
+					$.cookie('Xshangpin',arrString,{expires:10});
+				}
+				//..................................删除与撤销删除.........................................................
+				
+				//................................自动全选...................................................
+				$('.g_check :checkbox').prop('checked',true);
+				//...................................勾选.金额.合计.总价......................................................
+				$('.g_check :checkbox').on('click',function (){
+					heji();
+				});
+				function heji(){
+					if($('.g_check :checkbox').is(':checked')){
+						$(':checkbox:visible').prop('checked',true);
+						$('.g_jiner').show();
+						$('.g_jin_liji').removeClass('addcolor');
+						var wushu = $('.g_smax:visible').length;  //可看见的商品列表数量，即多少个独立商品总价
+						var jiaZhong = 0;
+						var arrs = [];
+						//console.log(wushu);
+						for(var i = 0; i < wushu;i++){
+							arrs= $('.g_smax_duo2:visible').eq(i).text().split('￥');
+							jiaZhong += parseInt(arrs[1]);
+						}
+						var jiaG = '￥'+ jiaZhong +'.00';
+						$('.g_jshu1').text(jiaG);
+						$('.g_jshu2').text(jiaG);
+					}else {
+						$('.g_jiner').hide();
+						$('.g_jin_liji').addClass('addcolor');
+						$(':checkbox:visible').prop('checked',false);
+					}
+				}
+				
+					$('.g_smax_duan :checkbox').change(function (){   //当子复选框被改变框选状态时实时重设总价格
+						var chiShu = $('.g_smax_duan:visible').length;
+						var zongShu = 0;
+						var Xian = false;
+						var quanXian = true;
+						for(var i = 0; i < chiShu; i++){
+							if($('.g_smax_duan:visible').eq(i).find(':checkbox').is(':checked')){
+								var arr = $('.g_smax_duan:visible').eq(i).siblings('.g_smax_duo2').text().split("￥");
+								//console.log(arr[1]);
+								zongShu += parseInt(arr[1]);
+								Xian = true;
+							}else {
+								quanXian = false;
+							}
+						}
+						$('.g_jshu1').text('￥' + zongShu + '.00');
+						$('.g_jshu2').text('￥' + zongShu + '.00');
+						if(Xian){
+							$('.g_jiner').show();
+							$('.g_jin_liji').removeClass('addcolor');
+						}else {
+							$('.g_jiner').hide();
+							$('.g_jin_liji').addClass('addcolor');
+						}
+						$('.g_check :checkbox').prop('checked',quanXian);  //如果子复选框都为框选状态，则将总复选框框选
+					});
+				
+				function gouxuan(){
+					if(!($('.g_check :checkbox').is(':checked'))){
+						if($('.g_smax_duan :checkbox :checked')){
+							console.log($('.g_smax_duan :checkbox :checked').index());
+						}
+					}
+				}
+				//..............................继续购物按钮.................................................................
+				/*$('.g_jinjixu a').click(function (event){
+					event.preventDefault();
+				});*/
+				//...............................登录帐号...........................................................
+				/*var denglu = $.cookie('DENGLU');
+				if(denglu){
+					$('.g_zhanghao').text(denglu);
+				}*/
+				//.................................删除按钮...................................................
+				var cunArr = [];
+				var delateArr = [];
+				shanchu();
+				function shanchu(){
+					$('#shan').click(function (event){     //删除按钮操作
+						var duan = $(this).closest('.show_g_smax').find('.g_smax_duan p a').text();
+						var ID = $(this).closest('.show_g_smax').find('.g_shu').attr('id');   //获取该行id
+						$('.g_shan:eq(0)').clone().insertAfter($(this).closest('.show_g_smax')).addClass('show_g_shan');
+						$(this).closest('.show_g_smax').next('.show_g_shan').find('p').text(duan).attr('id',ID).end().show(function (){
+							chexiao();
+						});
+						var shan_hang = $(this).closest('.show_g_smax').detach();
+						delateArr.push(shan_hang);
+						var cookieArr = JSON.parse($.cookie('Xshangpin'));
+						var countT = 0;
+						$.each(cookieArr,function (index,vals){
+							if(vals.id == ID){
+								cunArr.push(vals);
+								//console.log('lala');
+								countT = index;
+							}
+						});
+						cookieArr.splice(countT,1);  //删除该对象
+						chagou();
+						$('.g_smax_duan :checkbox').trigger('change');
+						var arrString = JSON.stringify(cookieArr);   //将其转化为字符串格式
+						$.cookie('Xshangpin',arrString,{expires:10});  //浏览器中同名cookie会自行替换掉之前的cookie，所以不必对之前的cookies进行处理
+						event.preventDefault();
+					});
+				}
+				function chexiao(){
+					$('.show_g_shan .g_chexiao').hover(function (){  //撤销操作
+						$(this).css({'color':"#f60",'text-decoration':"underline"});
+					},function (){
+						$(this).css({'color':"",'text-decoration':""});
+					});
+					$('.show_g_shan .g_chexiao').click(function (event){
+						console.log('px1');
+						var p_id = $(this).siblings('p').attr('id');
+						var cookieArr = $.cookie('Xshangpin')? JSON.parse($.cookie('Xshangpin')):[];
+						var countC = 0;
+						$.each(cunArr,function (index,val){
+							if(p_id == val.id){
+								cookieArr.push(val);    //放入cookie中
+								$(this).closest('.show_g_shan').insertBefore(ele);
+								$(this).closest('.show_g_shan').remove();
+								//console.log('chacha');
+								countC = index;
+							}
+						});
+						cunArr.splice(countC,1);  //再取出该对象
+						var ele = delateArr[countC];
+						 delateArr.splice(countC,1);
+						$(this).closest('.show_g_shan').replaceWith(ele);
+						chagou();
+						$('.g_smax_duan :checkbox').trigger('change');
+						var arrString = JSON.stringify(cookieArr);   //将其转化为字符串格式
+						$.cookie('Xshangpin',arrString,{expires:10});  //浏览器中同名cookie会自行替换掉之前的cookie，所以不必对之前的cookies进行处理
+
+					});
+				}
+				function chagou(){
+					if($('.show_g_smax')){
+					}else {
+						$('.g_check :checkbox').prop('checked',false);
+						heji();
+						
+					}
+				}
+			})
+		</script>
+	</head>
+	<body>
+		<div class="g_nav">
+			<a href="shouye.html"><img class="logo" src="img/logo.jpg"></a>
+			<div class="g_xin">
+				<p>
+					<span class="g_zhanghao"></span><span>晚上好，欢迎来新蛋购物！</span>
+					<span><a href="#">安全退出</a></span>
+				</p>
+				<img src="img/gouwuche/g_kefu.png">
+			</div>
+			<div class="g_ji"><span>江浙泸部分地区79元包邮，全国部分地区199元包邮。</span><span><a href="#">查看详情</a></span></div>
+		</div>
+		<div class="g_content">
+			<div class="g_jin">
+				<div class="g_wxian"></div>
+				<div class="g_jinm">
+					<div class="g_bao">
+						<img src="img/gouwuche/g_qianjin1.png"><p class="addse">购物车</p>
+					</div>
+					<span class="gxian"></span>
+					<div class="g_bao">
+						<img src="img/gouwuche/g_qianjin2.png"><p>确认订单</p>
+					</div>
+					<span class="gxian"></span>
+					<div class="g_bao">
+						<img src="img/gouwuche/g_qianjin2.png"><p>提交成功</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="g_gou">
+				<table border="1" cellspacing="0" cellpadding="0" class="g_yyin">
+					<tr class="g_yyins"><th>我的购物车</th></tr>
+					<tr class="g_yyinx"><td><span>您的购物车尚未添加产品，请尽情在新蛋网选购您要购物的产品吧!</span><span><a href="shangpin.html">继续购物&gt;&gt; </a></span><span>祝您购物愉快！</span></td></tr>
+				</table>
+				
+				<table border="1px" cellspacing="0" cellpadding="0" class="g_big">
+					<tr><th class="g_tz">我的购物车</th><th class="g_ty">购物车结算</th></tr>
+					<tr class="g_thang">
+						<td>
+							<table border="0" cellspacing="0" cellpadding="5" class="g_small">
+								<tr class="g_smas">
+									<td class="g_check"><input type="checkbox" name="" id="" value="" /><span>全选 商品名称</span></td>
+									<td class="g_smas_spac">单价</td>
+									<td class="g_smas_spac">数量</td>
+									<td class="g_smas_spac">小计</td>
+									<td class="g_smas_spac">操作</td>
+								</tr>
+								<tr class="g_shan">
+									<td colspan="5">
+										<div>
+											<p></p>
+											<span>商品已从购物车中删除</span>
+											<span class="g_chexiao">撤销删除&gt;&gt;</span>
+										</div>
+									</td>
+								</tr>
+								<tr class="g_smax">
+									<td class="g_smax_duan"><input type="checkbox" name="" id="" value="" /><img src=""><p><a href="#"></a></p></td>
+									<td class="g_smax_duo g_smax_duo1"></td>
+									<td class="g_smax_duo"><div class="g_shu">1</div><div class="g_jia g_jian1">+</div><div class="g_jia g_jian2">-</div><p>限购200</p></td>
+									<td class="g_smax_duo g_smax_duo2"></td>
+									<td class="g_smax_duo"><a id="shan" href="#">删除</a><a href="#">移入收藏夹</a></td>
+								</tr>
+							</table>
+						</td>
+						<td class="g_gy">
+							<div class="g_jiner"><span class="g_jmin">金额：</span><span class="g_jshu g_jshu1">￥999.00</span></div>
+							<div class="g_jiner"><span class="g_jmin">合计：</span><span class="g_jshu g_jshu2">￥999.00</span></div>
+							<div class="g_jin_liji">立刻结账</div>
+							<div class="g_jinjixu"><a href="shangpin.html">继续购物&gt;&gt;</a></div>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
+		<div class="g_shanglie">
+			<ul class="cbbut_ubottom cbbut_ub1">
+				<li>
+					<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtub4.jpg"><img class="cbtu_bei" src="img/gong/qwdj.png"></a></div>
+					<p><a href="#">Apple 苹果 MacBook 12英寸 MMGL2CH/A 玫瑰金色 - 1.1GHz/8GB/256GB 闪存/Retina 显示屏</a></p>
+					<h3>￥9188.00</h3>
+					<h4 id="Apple_MMGL2CH/A_玫瑰金色_256GB " class="9188">加入购物车</h4>
+				</li>
+				<li>
+					<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtud1.jpg"><img class="cbtu_bei" src="img/gong/mxsp.png"></a></div>
+					<p><a href="#">Apple 苹果 MacBook Pro 15.4英寸 MJLQ2CH/A 银色 - i7-2.2GHz/16GB/256GB 闪存/Retina 显示屏</a></p>
+					<h3>￥12888.00</h3>
+					<h4 id ="Apple_MJLQ2CH/A_银色_256GB" class="12888">加入购物车</h4>
+				</li>
+				<li>
+					<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtud2.jpg"><img class="cbtu_bei" src="img/gong/rxtj.png"></a></div>
+					<p><a href="#">Bose SoundLink Mini II 蓝牙无线音箱2代 - 白色</a></p>
+					<h3><span>￥1609.00</span>￥1159.00</h3>
+					<h4 id ="Bose_蓝牙无线音箱2代_白色" class="1159">加入购物车</h4>
+				</li>
+				<li>
+					<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtud3.jpg"><img class="cbtu_bei" src="img/gong/mxsp.png"></a></div>
+					<p><a href="#">Canon 佳能 EOS 80D 单反相机 含 EF-S 18-200mm f/3.5-5.6 IS 远摄变焦镜头</a></p>
+					<h3>￥11199.00</h3>
+					<h4 id="Canon_EOS 80D_18-200套机" class="11199">加入购物车</h4>
+				</li>
+				<li>
+					<div class="cbtu"><a href="#"><img class="cbtu_tu" src="img/contb/cbtud5.jpg"><img class="cbtu_bei" src="img/gong/rxtj.png"></a></div>
+					<p><a href="#">DELL 戴尔 Vostro 14-5459R-1528S 14英寸 笔记本 银色 -i5-6200U/4G/500G/GT930M-2G/Win10</a></p>
+					<h3>￥3349.00</h3>
+					<h4 id="DELL_14-5459R-1528S_银色_500G" class="3349">加入购物车</h4>
+				</li>
+			</ul>
+		</div>
+		<div></div>
+		<div class="footd_box">
+			<p class="foorlian">新蛋集团网站：<a href="#">美国新蛋</a><a href="#">中国新蛋</a><a href="#">加拿大新蛋</a><a href="#">新蛋软件</a><a href="#"></a></p>
+		</div>	
+		<p class="banquan"><span class="span1">&copy; 2001-2016 </span><span>新蛋商贸（上海）有限公司 </span><span>版权所有 </span><a href="#">沪ICP备：16033615</a></p>
+	</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			body,h4,ul,h5{margin: 0;padding: 0;font-size:12px;}
+			ul{list-style: none;}
+			a{color:black;text-decoration:none;}
+			img{display: block;border: 0;}
+			
+			.xuan-bao{width:179px;height:474px;}
+			.xuan{width:175px;height:472px;border:2px solid #f60;border-top:0;position: relative;}
+			.xuan_u1{width:175px;background: white;}
+			.xuan_u1_li{width: 173px;height:70px;border:1px solid white;border-bottom:1px solid #e5e5e5;position: absolute;left:0;}
+			.xuan_shou{width:162px;height:14px;line-height: 14px;padding:14px 0 5px 0;position: relative;}
+			.xuan_bei{position: absolute;top:14px;left:3px;background:darkred;}
+			.xuan_shou h5{margin:0 0 0 18px;}
+			.xuan_shou a{margin:0 9px 0 0;color:#333;}
+			.xuan_shou img{float: right;}
+			.xuan_u2{margin:0 0 6px;}
+			.xuan_u2 li{width:155px;padding:0 0 0 18px;position: absolute;left:0;}
+			.xuan_u2 li a{display:inline-block;margin:5px 9px 10px 0;color:#666;}
+			.xuan_u2 .spacA{color:#f60;}
+			.xuan a:hover{text-decoration: underline;}
+			.xuan_u1_lia{top:0;}
+			.xuan_u1_lib{top:72px;}
+			.xuan_u1_lic{top:144px;}
+			.xuan_u1_lid{top:216px;}
+			.xuan_u1_lispac{top:288px;height:auto;border:0;}
+			.xuan_u1_lispnei{widows: 173px;height: 184px;position: relative;}
+			.xuan_u2_li1{top:33px;}
+			.xuan_u2_li2{top:62px;}
+			.xuan_u2_li3{top:91px;}
+			.xuan_u2_li4{top:120px;}
+			.xuan_u2_li5{top:149px;}
+			.addborder{box-shadow: 0 2px 3px #979797;border-bottom:0;z-index:4;}
+			.zhegai,.zhegai2{position: absolute;width:5px;left:157px;background: white;z-index:6;}
+			
+			.yinbox{width: auto;height: auto;position: absolute;top:-8px;left:157px;z-index: 5;background: white;box-shadow: 1px 1px 1px #979797;display: none;}
+			.yin{width: 820px;height: 490px;border:1px solid #999;position: relative;}
+			.yitb{margin:21px 0 0 21px;border-collapse: collapse;width:560px;float: left;}
+			.yitb tr{}
+			.yitb tr th{display:block;padding:0 10px 20px 0;width:50px;}
+			.yitb tr td{width:496px;padding:0 0 12px 0;}
+			.yitb td a{padding: 0 6px;margin:0 0 9px;display:inline-block;}
+			b{font-weight: 500;color:#999;padding: 0 4px;}
+			
+			.yizt{margin:24px 24px 0 0;width:auto;height: auto;float: right;background: ;}
+			.yizt h4{margin:0 0 6px;}
+			.yiz_ul{width:203px;border:1px solid lightgray;border-right:0;border-bottom: 0;overflow: hidden;}
+			.yiz_ul li{float: left;width:100px;height: 40px;position: relative;overflow: hidden;border-right:1px solid lightgray;border-bottom:1px solid lightgray;}
+			.yiz_ul li img{position: absolute;top:0;left: 0;}
+			
+			.spac1z{width: 590px;height: 100px;position: absolute;bottom:0;left:0;}
+			.spac1z a{width: 100%;height: 100%;display: block;}
+			.spac1y{width: 230px;height: 230px;position: absolute;bottom:0;right:0;}
+			.spac1y a{width: 100%;height: 100%;display: block;}
+			
+		</style>
+		<!--<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>-->
+		<script type="text/javascript">
+			$(function (){
+				$.get('json/yinjson.json',function (data){
+					xuan(data);
+				});
+				
+			})
+		</script>
+		<script type="text/javascript" src="js/yin.js"></script>
+	</head>
+	<body>
+		<div class="xuan-bao">
+			<div class="xuan">
+			<ul class="xuan_u1">
+				<li class="xuan_u1_li xuan_u1_lia">
+					<div class="xuan_shou">
+						<img class="xuan_bei bei1" src="img/cota1.png">
+						<h5><a href="#">海外直购</a><img src="img/cota6.png"/></h5>
+					</div>
+					<ul class="xuan_u2"><li><a class="spacA" href="#">影音</a><a class="spacA" href="#">固态硬盘</a><a href="#">奶粉</a></li></ul>
+				</li>
+				<li class="xuan_u1_li xuan_u1_lib">
+					<div class="xuan_shou">
+						<img class="xuan_bei bei2" src="img/cota2.png"/>
+						<h5><a href="#">手机</a><a href="#">摄影</a><a href="#">苹果</a><img src="img/cota6.png"/></h5>
+					</div>
+					<ul class="xuan_u2"><li><a class="spacA" href="#">智能手机</a><a href="#">微单</a><a class="spacA" href="#">上网卡</a></li></ul>
+				</li>
+				<li class="xuan_u1_li xuan_u1_lic">
+					<div class="xuan_shou">
+						<img class="xuan_bei bei3" src="img/cota3.png"/>
+						<h5><a href="#">电脑</a><a href="#">外设</a><a href="#">办公</a><img src="img/cota6.png"/></h5>
+					</div>
+					<ul class="xuan_u2"><li><a class="spacA" href="#">笔记本</a><a class="spacA" href="#">路由器</a><a href="#">耳机</a></li></ul>
+				</li>
+				<li class="xuan_u1_li xuan_u1_lid">
+					<div class="xuan_shou">
+						<img class="xuan_bei bei4" src="img/cota4.png"/>
+						<h5><a href="#">家用电器</a><img src="img/cota6.png"/></h5>
+					</div>
+					<ul class="xuan_u2"><li><a href="#">电饭煲</a><a class="spacA" href="#">电视</a><a href="#">净水器</a></li></ul>
+				</li>
+				<li class="xuan_u1_li xuan_u1_lispac">
+					<div class="xuan_u1_lispnei">
+						<div class="xuan_shou">
+							<img class="xuan_bei bei5" src="img/cota5.png"/>
+							<h5><a href="#">生活百货</a><img src="img/cota6.png"/></h5>
+						</div>
+						<ul class="xuan_u2 xuan_u2spac">
+							<li class="xuan_u2_li1"><a class="spacA" href="#">汽车用品</a><a href="#">个护清洁</a></li>							
+							<li class="xuan_u2_li2"><a href="#">家居</a><a href="#">厨用</a><a href="#">钟表</a><a href="#">礼品</a></li>
+							<li class="xuan_u2_li3"><a href="#">男装</a><a href="#">女装</a><a href="#">内衣</a><a href="#">珠宝</a></li>
+							<li class="xuan_u2_li4"><a href="#">母婴</a><a href="#">玩具</a><a href="#">食品</a><a href="#">酒饮</a></li>
+							<li class="xuan_u2_li5"><a href="#">鞋靴</a><a href="#">箱包</a><a href="#">运动</a><a href="#">户外</a></li>
+							<div class="zhegai2"></div>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div class="yinbox">
+				<div class="yin" id="yin1">
+					<table border="0" cellspacing="0" cellpadding="0" class="yitb">
+					</table>
+					<div class="yizt">
+						<h4>热门品牌</h4><ul class="yiz_ul"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="zhegai"></div>
+		</div>
+		</div>
+	</body>
+</html>

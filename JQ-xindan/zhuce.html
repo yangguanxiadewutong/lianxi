@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jquery.idcode.css"/>
+		<style type="text/css">
+			a:hover{text-decoration: underline;}
+			
+			.z_nav{width:100%;height: 28px;background: #f1f1f1;border-bottom:1px solid #999;margin:2px 0 0;}
+			.z_navn{width:990px;line-height: 28px;margin:0 auto;}
+			.d_a{width:auto;height:28px;margin:0 8px 0 8px;background: url(img/denglu/topbar.png) 0 0 no-repeat;}
+			.d_a a{padding: 0 0 0 16px;}
+			.d_a a:hover{text-decoration: underline;}
+			.z_navn .d_a1{background-position: 0 0px;}   /*background-position: 0 -20px;*/
+			.z_navn .d_a2{background-position: 0 -45px;} /*background-position: 0 -65px;*/
+			.z_navn .d_a3{background-position: 0 -92px;} /*background-position: 0 -112px;*/
+			.z_nav ul{float: right;}
+			.z_nav ul li{float: left;padding: 0 10px;}
+			.z_nav li a:hover{text-decoration: underline;}
+			.z_nav .z_ulli_spac{position:relative;}
+			.z_nav .z_ulli_spac a:hover{text-decoration: none;}
+			.z_nav .z_ulli_spac a{float: left;}
+			.z_nav .z_ulli_spac span{display:block;float: left;margin:2px 0 0 4px;}
+			.z_jf{width:15px;}
+			#g_ybox{position: absolute;top:28px;right:-1px;border:1px solid #d7d7d7;border-top:0;display:none;
+			box-shadow:2px 2px 4px #d7d7d7;padding: 6px 16px 16px 16px;background: white;}
+			#g_ybox span{line-height:15px;margin:4px 0 0 8px;display:block;float: left;}
+			#g_ybox .g_y1{color:#fe7b23;font-size:16px;font-weight: bold;}
+			#g_ybox .g_y2{color:#484848;font-size:14px;font-weight:bold;}
+			#g_ybox .g_y3{color:#484848;font-size:12px;}
+			.g_ydian{width:124px;height:25px;margin:5px 0 0;float: left;}
+			.g_ydian a{width:100%;height:100%;line-height: 25px;text-align: center;color:white;}
+			.g_ydian div{width:60px;margin:0 4px 0 0;float: left;background: #4f9ee7;}
+			.g_ydian_a{margin:0 4px 0 0;}
+			.g_ydian .g_ydian_b{margin:0;}
+			.g_ydian2{background: #f60;}
+			.z_navn .addnav_bg{background: white;}
+			.z_huan{float: right;}
+			
+			.zhub{width: 100%;height: 107px;}
+			.zhuc{width: 100%;height:490px;background: #f9f9f9;margin:0 0 60px 0;}
+			.nav{margin:0 200px;line-height: 25px;}
+			.tu{margin: 0 200px;}
+			.logotu{width:319px;height: 100%;float: left;margin:21px 0;}
+			.logotu a{display:block;width:100%;height: 100%;}
+			h1{float: left;font-size: 24px;line-height: 49px;margin: 29px 0 29px 20px;padding:0 0 0 20px;border-left:1px solid #999;}
+			
+			.content{margin: 0 140px;}
+			.deng{width: 100%;height: 36px;}
+			.deng p{float: right;margin:10px 70px 14px 0;}
+			.deng a{color:#fe0000;}
+			
+			.nei1{width: auto;height: 42px;margin:0 265px 0 0;float: right;clear: both;}
+			.shouji{width:auto;height:26px;margin:16px 0 0 7px;float: left;}
+			.qiu{width: 26px;line-height: 26px;font-size:15px;text-align: center;color:white;float: left;
+			border-radius:13px;background: #e1e1e1;}
+			.shouji p{font-size: 18px;line-height: 26px;color:#676767;margin:0 0 0 10px;float: left;}
+			.shouji img{display:block;margin:12px 0;float: left;}
+			.shouji .orange{background: #db712d;}
+			.shouji .color{color:#db712d;}
+			
+			.nei2{width: 710px;height: 300px;margin:43px 65px 0 160px;float: right;}
+			.nei2 input{line-height: 28px;border:1px solid #999;}
+			
+			
+			.z_form{display:;}
+			.biao{width:100%;height: 30px;padding:12px 0;}
+			.biao label{width:72px;display:inline-block;}
+			.biao span{display:inline-block;float: left;line-height:30px;color:#ff6600;}
+			.biao img{display:inline-block;float: left;line-height:30px;}
+			.bao{width: auto;height: 30px;float: left;}
+			.bao input{text-align: center;}
+			
+			#biao1q{display:;}
+			.biao1 input{width:255px;float: left;}
+			.biao1 span{float: left;}
+			.lab1{line-height:30px;letter-spacing: 2px;float: left;}
+			.z_form .z_tud{width:14px;height:14px;margin:8px 2px 8px 2px;background: url(img/zhuce/icon_logoin_s.png) no-repeat;
+			background-position: center -21px;display:none;}   /*center -40px */   /*效果之一，被隐藏*/
+			.z_form .z_dm{width:350px;line-height:12px;margin:8px 0 0;display:none;}
+			.z_qiandu{display:none;}   /*效果之一，密码强度条，被隐藏*/
+			.z_form .z_mq{color:black;margin:0 0 0 2px;}
+			.qian{width:18px;height: 8px;border:1px solid #f60;margin:10px 2px 0;}
+			.z_form .qian1{background: #f60;}   /*效果之一，密码强度一格*/
+			#biao1x{display:none;}
+			
+			
+			#biao2q{display:;}
+			#biao2x{display:none;}
+			.yankuang{width:128px;}
+			.yanzheng{width:118px;height: 30px;margin:0 0 0 10px;float: left; border:1px solid #999;background: pink;}
+			#idcode{padding:0 25px;}
+			#password2{width:255px;}
+			.z_form .z_mbk{display:none;}
+			#z_tud3{display:block;float: left;background-position: center -40px;display:none;}
+			#biao2x input{float: left;}
+			
+			
+			#biao3q{display:none;}
+			.huo1{width:255px;}
+			#huoqu{background: #e1e1e1;}
+			#z_tud2{width:14px;height:14px;margin:8px 2px 8px 2px;background: url(img/zhuce/icon_logoin_s.png) no-repeat;
+			background-position: center -40px;display:block;} 
+			.biao3 .chonghuoqu{width:116px;height: 28px;line-height: 28px;text-align: center;border:1px solid #999;background: white;}
+			.z_fa{display:;}
+			#biao3x{line-height:30px;display:none;}
+			#biao3x input{}
+			.z_form .z_tong{float: none;}
+			.z_form .z_tong a{color:#f60;}
+			
+			
+			#biao4q{display:;}
+			.baox{}
+			.baox input{width:255px;line-height:28px;}
+			.z_form .z_huo{background: #e1e1e1;} 
+			.biao4 .z_xia,.z_zhuce{background: #f55b17;border:0;height: 30px;color:white;font-size:16px;} 
+			.z_form .z_zhuce{border:0;}
+			.bao1{display:;}/*效果之一，被隐藏*/
+			.bao2{display:none;}/*效果之一，被隐藏*/
+			#biao4x{display:none;}
+			
+			.form2{display:none;position: relative;}
+			.cheng{width:100%;line-height: 42px;background: pink;background: url(img/zhuce/zhu-ok.png) no-repeat;}
+			.cheng span{margin:0 0 0 45px;font-size:20px;}
+			.form2 p{margin:10px 0 0 5px;}
+			.form2 p a{color:#f60;}
+			.hui{width:100%;height: 20px;margin:30px 0 0 5px;color:gray;}
+			.you{width:100%;height: 32px;line-height: 32px;margin:10px 0 0;}
+			.bang{padding:0 10px 0 23px;background: url(img/zhuce/z_youxiang.png) 6px 8px no-repeat;text-indent:10px;float: left;}
+			.you input{width:255px;height:30px;border:1px solid #999;background:#f9f9f9;float: left;}
+			.z_que{width:90px;height: 32px;background: #f60;color:white;text-align: center;display:inline-block;margin: 0 0 0 20px;letter-spacing: 4px;cursor: pointer;}
+			.z_tuwei{position:absolute;top:10px;right:0px;}
+			
+			
+			.footd{width:522px;height: 45px;margin:0 auto;}
+			.footd img{float: left;margin: 0 5px;}
+			.footd_box{width:100%;height: 30px;margin:14px 0;}
+			.foorlian{width:310px;line-height:30px;margin:0 auto;}
+			.foorlian a{margin: 0 2px;}
+			.banquan{width: 441px;margin:0 auto;font-size:13px;margin-bottom: 40px;}
+			.banquan span{margin:0 4px 0 0;font-size:12px;}
+			.banquan .span1{font-size:15px;}
+		</style>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.idcode.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+			$(function (){
+				$('.d_a').mouseenter(function (){
+					var index = $(this).index();
+					if(index == 0){$('.d_a').eq(index).css('background-position',"0 -20px");}
+					if(index == 1){$('.d_a').eq(index).css('background-position',"0 -65px");}
+					if(index == 2){$('.d_a').eq(index).css('background-position',"0 -112px");}
+				}).mouseleave(function (){
+					$(this).css('background-position',"");
+				});
+				
+				$('.z_ulli_spac').hover(function (){
+					$(this).addClass('addnav_bg').find('img').attr('src','img/denglu/z_jian2.png');
+					$('#g_ybox').show();
+				},function (){
+					$(this).removeClass('addnav_bg').find('img').attr('src','img/denglu/z_jian1.png');
+					$("#g_ybox").hide();
+				});
+				
+				
+				
+				
+				//..................................加载验证码.......................................
+				
+			    $.idcode.setCode();   //加载生成验证码方法
+				//...................................验证手机号.校验验证码....................................................
+			    var yiZhuce = false;
+			    var shouJihao = 0;
+			    var yanZhengok = false;
+			    $('#text1').blur(function (){
+			    	shouJihao = $('#text1').val();
+			    	$('#z_tud1').hide();
+			    	$('.z_dm1').hide();
+			    	$('#Txtidcode').text('');
+			    	yanZhengok = false;
+			    	if(shouJihao){    //当手机框中有信息时才触发
+				    	var qianShouhao = $.cookie(shouJihao);
+				    	var reghao = /^1(3|5|8)\d{9}$/;
+				    	$('#z_tud1').hide();
+				    	if(reghao.test(shouJihao)){   //当输入的手机为正确格式时执行以后的程序，否则不能进行之后的程序
+				    		yanZhengok = true;
+				    		$('#z_tud1').show();
+					    	if(qianShouhao){  //若是获取到之前已注册过的手机号
+					    		$('#z_tud1').css('background-position','center -40px');
+					    		$('.z_dm1').show();
+					    		yiZhuce = true;
+					    	}else {
+					    		$('#z_tud1').css('background-position','center -21px');
+					    		$('.z_dm1').hide();
+					    		yiZhuce = false;
+					    	}
+				    	}else {
+				    		alert('请输入正确格式的11位手机号码，手机号可没有字母或字符哦！');
+				    	};
+			    	}else {
+			    	}
+			    }).trigger('blur');
+			    var timer = 0
+			    $("#butn").click(function(){
+			        var IsBy = $.idcode.validateCode()  //调用返回值，返回值结果为true或者false
+			        if(yanZhengok){  //手机号码格式正确才能执行之后的步奏，否则将卡在这里一直无法往下
+				        if(yiZhuce){
+					        if(IsBy){
+					             alert("手机号已注册，请重新输入");
+					        }else {
+					            alert("验证码错误，手机号已注册，请重新输入");
+					        }
+				        }else {
+				        	 if(IsBy){   //如果手机号、验证码都OK
+				        	 	$('#biao3q').show();  //显示短信获取验证框
+				        	 	$('#text3').val('');  //有时候页面会有缓存，需要将上一次的操作缓存清除掉
+				        	 	$('.z_xia').show();
+				        	 	$(".bao1").hide();
+				        	 	$('.bao2').show();
+				        	 	var miao = 60;
+				        	 	timer = setInterval(function (){--miao;if(miao ==0){miao = 60};$('.chonghuoqu').text(miao+'秒后重新获取');},1000);
+					        }else {
+					            alert("验证码错误，请重新输入");
+					        }
+				        }
+			        }else {
+			        	alert("手机格式不对，请重新输入");
+			        }
+			      // $.cookie(shouJihao,'0',{expires:1});
+			    })
+				$('.kan a').click(function (){   //取消‘看不清楚，重刷一下’的本身默认行为（内有a链接）
+					$.idcode.setCode();  
+					return false;
+				});
+				
+				$('.z_xia').click(function (){
+					var duanXin = $('#text3').val();
+					var regxin = /^\d{6}$/;
+					if(regxin.test(duanXin)){  //如果动态短信验证成功，进入下一步，注册账号的密码
+						shouJihao = $('#text1').val();         //保存能注册的手机号码，之后将存入cookie中
+						$('#biao1q').hide();    //关闭所有验证手机号页面的文本框
+						$('#biao2q').hide();
+						$('#biao3q').hide();
+						$('#biao4q').hide();
+						$('#biao1x').show();   //显示所有注册密码页面的文本框
+						$('#biao2x').show();
+						$('#biao3x').show();
+						$('#biao4x').show();
+						$('.shouji:eq(0)').find('img').attr('src','img/zhuce/zhuce03.png');
+						$('.shouji:eq(1)').find('.qiu').addClass('orange').end().find('p').addClass('color').end().find('img').attr('src','img/zhuce/zhuce01.jpg');
+					}else {
+						alert('动态验证码错误，已重新发送动态验证码');
+						clearInterval(timer);
+						$('#text3').val('');
+						var miao = 60;
+						timer = setInterval(function (){--miao;if(miao ==0){miao = 60};$('.chonghuoqu').text(miao+'秒后重新获取');},1000);
+					}
+					
+				});
+			    var miMa = 0;             //之后存入cookie的账号密码
+			    $('#password1').blur(function (){   //密码框验证
+			    	miMa = $(this).val();
+			    	var regMimaq = /^.{8,16}$/;
+			    	var regMimas = /^\d*$/;
+			    	var regMimaz = /^[a-zA-Z]*$/;
+			    	var regMimat = /^[^0-9a-zA-Z]*$/;
+			    	$('#z_tud3').hide();
+				    $('.z_dm2').hide();
+			    	$('.z_qiandu').hide();
+			    	$('.qian:gt(0)').removeClass('qian1');
+			    	if($('#password2').val()){$('#password2').trigger('blur');}
+			    	if(regMimaq.test(miMa)){         //如果满足8-16位
+				    	if(regMimas.test(miMa)){     //如果是8-16位的数字
+				    		cuowu();
+				    		console.log('1x');
+				    	}else if(regMimaz.test(miMa)){ //如果是8-16位的字母                   
+				    		cuowu();
+				    		console.log('2x');
+				    	}else if(regMimat.test(miMa)){ //如果是8-16位的特殊字符
+				    		cuowu();
+				    		console.log('3x');
+					    }else {
+					    	var regruo = /^.{9,11}$/;
+					    	var regzhong = /^.{12,13}$/;
+					    	var regqiang = /^.{14,16}$/;
+					    	if(regqiang.test(miMa)){
+					    		$('.qian').addClass('qian1');
+					    	}else if(regzhong.test(miMa)){
+					    		$('.qian').slice(1,3).addClass('qian1');
+					    	}else if(regruo.test(miMa)){
+					    		$('.qian').eq(1).addClass('qian1');
+					    	}
+					    	$('.z_qiandu').show();
+					    }
+			    	}else {
+			    		cuowu();
+			    		console.log('0x');
+			    	}
+			    	function cuowu(){
+			    		$('#z_tud3').show();
+				    	$('.z_dm2').show();
+			    	}
+			    });
+			    var chongYan = 0;
+			    $('#password2').blur(function (){
+			    	$('#z_tud4').hide();
+			    	$('.z_mbk').hide();
+			    	chongYan = $(this).val();
+			    	console.log('4x');
+			    	if(chongYan){
+				    	if(chongYan !=  $('#password1').val()){
+				    		$('#z_tud4').css('background-position','center -40px').show();
+				    		$('.z_mbk').text('前后密码不一致，请重新输入').show();
+				    	}else {
+				    		$('#z_tud4').css('background-position','center -21px').show();
+				    	}
+			    	}else {
+			    		$('#z_tud4').css('background-position','center -40px').show();
+			    		$('.z_mbk').text('确认密码不能为空').show();
+			    	}
+			    });
+			    
+			    $('.z_zhuce').click(function (){
+			    	$('#password2').trigger('blur');
+			    	if( chongYan && miMa && ($('#password1').val() == $('#password2').val())){
+				    	if($('#tongyi').is(':checked')){
+				    		miMa = $('#password1').val();   //保存该帐号的密码，将存入cookie中
+				    		$('.z_form').hide();
+				    		$('.form2').show();
+				    		$('.qiu').eq(2).addClass('orange').siblings('p').addClass('color')
+				    		$('.qiu').eq(1).siblings('img').attr('src','img/zhuce/zhuce03.png');
+				    		$.cookie(shouJihao,miMa,{expires:7});
+				    	}else {
+				    		alert('你还未同意 <<新蛋用户注册协议>>.');
+				    	}
+			    	}else {
+			    		alert('密码框为空或前后密码不一致，请重新输入，记得要同意 <<新蛋用户注册协议>>哦，o(*≧▽≦)ツ');
+			    	}
+			    });
+			})
+			
+		</script>
+	</head>
+	<body>
+		<div class="z_nav">
+			<div class="z_navn">
+				<span class="d_a d_a1"><a href="#">掌上新蛋</a></span><span class="d_a d_a2"><a  href="#">企业客户</a></span><span class="d_a d_a3"><a href="#">入驻开放平台</a></span>
+				<ul>
+					<li><a href="#">帮助中心</a></li>
+					<li class="z_ulli_spac">
+						<a href="#">客户服务</a><span class="z_jf"><img src="img/denglu/z_jian1.png"></span>
+						<div id="g_ybox">
+							<span class="g_y1">400-820-4400</span>
+							<span class="g_y2">021-67072999</span>
+							<span class="g_y3">每天 9:00-18:00</span>
+							<div class="g_ydian"><div class="g_ydian_a"><a href="#">在线咨询</a></div><div class="g_ydian_b"><a href="#">邮件我们</a></div></div>
+							<div class="g_ydian g_ydian2"><a href="#">预约来电</a></div>
+						</div>
+					</li>
+				</ul>
+				<span class="z_huan">欢迎来新蛋购物!</span>
+			</div>
+		</div>
+		<div class="zhua">
+			<div class="nav"></div>
+		</div>
+		<div class="zhub">
+			<div class="tu">
+				<div class="logotu"><a href="shangpin.html"><img src="img/zhuce/logo.png"></a></div>
+				<h1>新用户注册</h1>
+			</div>
+		</div>
+		<div class="zhuc">
+			<div class="content">
+				<div class="deng"><p>已是新单会员 现在<a href="denglu.html">登录</a></p></div>
+				<div class="nei1">
+					<div class="shouji">
+						<div class="qiu orange">1</div>
+						<p class="color">手机验证</p>
+						<img src="img/zhuce/zhuce01.jpg"  />
+					</div>
+					<div class="shouji">
+						<div class="qiu">2</div>
+						<p>设置密码</p>
+						<img src="img/zhuce/zhuce02.jpg"  />
+					</div>
+					<div class="shouji">
+						<div class="qiu">3</div><p>完成注册</p>
+					</div>
+				</div>
+				<div class="nei2">
+					<form action="" class="z_form">
+						<div class="biao biao1" id="biao1q">
+							<label  class="lab1" for="text1">手机号码：</label><input type="text" id="text1"/>
+							<span class="z_tud" id="z_tud1"></span>
+							<span class="z_dm z_dm1">该手机号已注册过，请使用该手机号登录或使用新手机号进行注册</span>
+						</div>
+						<div class="biao biao1" id="biao1x">
+							<label  class="lab1" for="password1">登录密码：</label><input type="password" id="password1"/>
+							<span class="z_tud" id="z_tud3"></span>
+							<span class="z_dm z_dm2">密码要求为8-16位的数字、英文字母、特殊符号中至少两种类型以上的组合</span>
+							<div class="z_qiandu">
+								<span class="z_mq">密码强度</span><span class="qian qian1"></span><span class="qian"></span>
+								<span class="qian"></span><span class="qian"></span>
+							</div>
+						</div>
+						<div class="biao biao2" id="biao2q">
+							<div class="bao"><label for="text2">图形验证码：</label><input class="yankuang txtVerification" type="text" id="Txtidcode"/></div>
+							<div class="yanzheng yanzhengma" id=""><span id="idcode"></span></div><span class="kan"><a href="#">看不清楚，换一张</a></span>
+						</div>
+						<div class="biao biao2" id="biao2x">
+							<label  class="lab1" for="password2">确认密码：</label><input type="password" id="password2"/>
+							<span class="z_tud" id="z_tud4"></span><span class="z_mbk">确认密码不能为空</span>
+						</div>
+						<div class="biao biao3" id="biao3q">
+							<div class="bao"><label for="text2">短信验证码：</label><input class="yankuang" type="text" id="text3"/></div>
+							<div class="yanzheng chonghuoqu">60秒后重新获取</div><span class="z_tud" id="z_tud2"></span><span class="z_fa">已发送一条动态验证码短信，请查收。</span>
+						</div>
+						<div class="biao" id="biao3x">
+							<label></label><input type="checkbox" name="" id="tongyi" value="" />我已阅读同意<span class="z_tong"><a href="#">&lt;&lt;新蛋用户注册协议&gt;&gt;</a></span>
+						</div>
+						<div class="biao biao4" id="biao4q">
+							<div class="baox bao1"><label></label><input type="button" class="z_huo" id="butn" value="获取短信验证码" /></div>
+							<div class="baox bao2"><label></label><input type="button" class="z_xia" value="下一步" /></div>
+						</div>
+						<div class="biao biao4" id="biao4x">
+							<div class="baox"><label></label><input type="button" name="" class="z_zhuce" value="注册" /></div>
+						</div>
+						
+
+
+						
+					</form>
+					<form action="" class="form2">
+						<div class="cheng"><span>恭喜，您已成功注册中国新蛋网。<span></div>
+						<p><a href="shouye.html">开始购物&gt;</a></p>
+						<p><a href="#">完善个人信息&gt;</a></p>
+						<div class="hui">验证邮箱可以帮您快速找回密码，并可以接受优惠信息，促销活动，降价提醒等信息。</div>
+						<div class="you"><span class="bang">绑定邮箱</span><input type="text"><span class="z_que">确定</span></div>
+						<div class="z_tuwei"><img src="img/zhuce/z_guan_wei.png" alt="" /></div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footd">
+			<a href="#"><img src="img/foottu2.png"></a>
+			<a href="#"><img src="img/foottu3.png"></a>
+			<a href="#"><img src="img/foottu4.png"></a>
+			<a href="#"><img src="img/foottu5.png"></a>
+		</div>
+		<div class="footd_box">
+			<p class="foorlian">新蛋集团网站：<a href="#">美国新蛋</a><a href="#">中国新蛋</a><a href="#">加拿大新蛋</a><a href="#">新蛋软件</a><a href="#"></a></p>
+		</div>	
+		<p class="banquan"><span class="span1">&copy; 2001-2016 </span><span>新蛋商贸（上海）有限公司 </span><span>版权所有 </span><a href="#">沪ICP备：16033615</a></p>
+	</body>
+</html>
